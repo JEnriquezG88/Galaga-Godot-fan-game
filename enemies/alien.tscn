@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5yt714rw6k4i"]
+
+[ext_resource type="Script" path="res://enemies/alien.gd" id="1_cxfvi"]
+[ext_resource type="PackedScene" uid="uid://n38qtsvbecl7" path="res://Arrow.tscn" id="1_t7y53"]
+
+[node name="Alien" type="Node3D"]
+script = ExtResource("1_cxfvi")
+
+[node name="Nothing" parent="." instance=ExtResource("1_t7y53")]

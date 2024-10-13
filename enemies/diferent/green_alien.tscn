@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjr0k837ktaec"]
+
+[ext_resource type="Script" path="res://enemies/diferent/green_alien.gd" id="1_1wbvo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_udefl"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wwvmh"]
+material = SubResource("StandardMaterial3D_udefl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rplbs"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_jtlw7"]
+material = SubResource("StandardMaterial3D_rplbs")
+size = Vector3(1, 0.5, 1)
+
+[node name="GreenAlien" type="Node3D"]
+script = ExtResource("1_1wbvo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_wwvmh")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 2.17987e-08, 1.08993e-08, -0.749348)
+mesh = SubResource("PrismMesh_jtlw7")

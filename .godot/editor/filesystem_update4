@@ -1,0 +1,17 @@
+res://levels/test.tscn
+res://globals/scripts/target_generator.gd
+res://enemies/alien_factory.tscn
+res://enemies/alien_factory.gd
+res://globals/scripts/Level.gd
+res://enemies/alien.tscn
+res://globals/scripts/distribution_generator.gd
+res://enemies/alien_handler.gd
+res://enemies/alien.gd
+res://enemies/diferent/green_alien.tscn
+res://Arrow.tscn
+res://enemies/diferent/green_alien.gd
+res://enemies/diferent/red_alien.tscn
+res://enemies/diferent/red_alien.gd
+res://enemies/diferent/yellow_alien.tscn
+res://enemies/diferent/yellow_alien.gd
+res://globals/scripts/states.gd

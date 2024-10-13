@@ -1,0 +1,98 @@
+[gd_scene load_steps=22 format=3 uid="uid://d3inl6td7tyr2"]
+
+[ext_resource type="Resource" uid="uid://cslvcweyejh3c" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_movement_component.tres" id="1_v5bj1"]
+[ext_resource type="Resource" uid="uid://iru8ynu04i00" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_rotation_component.tres" id="2_pkop6"]
+[ext_resource type="Resource" uid="uid://rp3mpjmisoyh" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_object_movement_component.tres" id="3_vkebs"]
+[ext_resource type="Resource" uid="uid://c8ulad7utgrg7" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/pre_blur_processing_stage.tres" id="4_prc0e"]
+[ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/pre_blur_processor.gd" id="5_v5dbq"]
+[ext_resource type="Resource" uid="uid://cp5pmuoa15e5g" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_blur_stage.tres" id="6_wotff"]
+[ext_resource type="Resource" uid="uid://bk8tn7n5k0b1r" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_neighbor_max_stage.tres" id="7_2t5uq"]
+[ext_resource type="Resource" uid="uid://chg1vh0sap86j" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_overlay_stage.tres" id="8_xl83n"]
+[ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_motion_blur.gd" id="9_1vkre"]
+[ext_resource type="Resource" uid="uid://kgrk5sdoor7t" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_tile_max_x_stage.tres" id="10_wpsjh"]
+[ext_resource type="Resource" uid="uid://d2rdmkpi41wf1" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_tile_max_y_stage.tres" id="11_8saed"]
+[ext_resource type="Resource" uid="uid://d1ckx52l74p0" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_tile_variance_stage.tres" id="12_uvdts"]
+[ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/BaseClasses/mb_compositor.gd" id="13_8bnpm"]
+[ext_resource type="Script" path="res://enemies/alien_factory.gd" id="14_ftu11"]
+[ext_resource type="Script" path="res://enemies/alien_handler.gd" id="15_xx6ug"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sabjh"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ovlga"]
+sky_material = SubResource("ProceduralSkyMaterial_sabjh")
+
+[sub_resource type="Environment" id="Environment_eminp"]
+background_mode = 1
+background_color = Color(0.0115892, 0.00693485, 0.0385205, 1)
+sky = SubResource("Sky_ovlga")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 2
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_h1hjp"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("5_v5dbq")
+pre_blur_processor_stage = ExtResource("4_prc0e")
+camera_rotation_component = ExtResource("2_pkop6")
+camera_movement_component = ExtResource("1_v5bj1")
+object_movement_component = ExtResource("3_vkebs")
+debug = false
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_ktuyi"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("9_1vkre")
+blur_stage = ExtResource("6_wotff")
+overlay_stage = ExtResource("8_xl83n")
+tile_max_x_stage = ExtResource("10_wpsjh")
+tile_max_y_stage = ExtResource("11_8saed")
+neighbor_max_stage = ExtResource("7_2t5uq")
+tile_variance_stage = ExtResource("12_uvdts")
+tile_size = 40
+debug = false
+
+[sub_resource type="Compositor" id="Compositor_a15a1"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_h1hjp"), SubResource("CompositorEffect_ktuyi")])
+script = ExtResource("13_8bnpm")
+samples = 16
+intensity = 1.0
+center_fade = 0.0
+framerate_independent = true
+uncapped_independence = false
+target_constant_framerate = 30.0
+
+[node name="Test" type="Node3D"]
+
+[node name="Enviroment" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviroment"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
+environment = SubResource("Environment_eminp")
+compositor = SubResource("Compositor_a15a1")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 7, 10)
+projection = 1
+size = 25.0
+
+[node name="AlienFactory" type="Node3D" parent="."]
+script = ExtResource("14_ftu11")
+
+[node name="AlienHandler" type="Node3D" parent="AlienFactory"]
+script = ExtResource("15_xx6ug")
