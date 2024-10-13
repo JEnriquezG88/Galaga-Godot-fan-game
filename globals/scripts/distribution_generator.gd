@@ -43,9 +43,9 @@ func thirdDist() -> Array:
 	return dist
 func HHDist() -> Array:
 	var dist : Array = []
-	dist.append([0, 0, 1, 1, 1, 0, 1, 0, 0, 0])
-	dist.append([0, 0, 0, 0, 1, 0, 1, 0, 0, 0])
-	dist.append([0, 0, 1, 1, 1, 1, 1, 0, 0, 0])
-	dist.append([0, 0, 1, 0, 1, 0, 0, 0, 0, 0])
 	dist.append([0, 0, 1, 0, 1, 1, 1, 0, 0, 0])
+	dist.append([0, 0, 1, 0, 1, 0, 0, 0, 0, 0])
+	dist.append([0, 0, 1, 1, 1, 1, 1, 0, 0, 0])
+	dist.append([0, 0, 0, 0, 1, 0, 1, 0, 0, 0])
+	dist.append([0, 0, 1, 1, 1, 0, 1, 0, 0, 0])
 	return dist

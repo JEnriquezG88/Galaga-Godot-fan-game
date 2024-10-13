@@ -15,3 +15,5 @@ res://enemies/diferent/red_alien.gd
 res://enemies/diferent/yellow_alien.tscn
 res://enemies/diferent/yellow_alien.gd
 res://globals/scripts/states.gd
+res://enemies/generalPaths/down_right_init.tres
+res://enemies/generalPaths/down_left_init.tres

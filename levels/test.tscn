@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d3inl6td7tyr2"]
+[gd_scene load_steps=26 format=3 uid="uid://d3inl6td7tyr2"]
 
 [ext_resource type="Resource" uid="uid://cslvcweyejh3c" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_movement_component.tres" id="1_v5bj1"]
 [ext_resource type="Resource" uid="uid://iru8ynu04i00" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_rotation_component.tres" id="2_pkop6"]
@@ -14,7 +14,9 @@
 [ext_resource type="Resource" uid="uid://d1ckx52l74p0" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_tile_variance_stage.tres" id="12_uvdts"]
 [ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/BaseClasses/mb_compositor.gd" id="13_8bnpm"]
 [ext_resource type="Script" path="res://enemies/alien_factory.gd" id="14_ftu11"]
+[ext_resource type="Curve3D" uid="uid://c4t4e7utbip44" path="res://enemies/generalPaths/down_left_init.tres" id="14_os4w3"]
 [ext_resource type="Script" path="res://enemies/alien_handler.gd" id="15_xx6ug"]
+[ext_resource type="Curve3D" uid="uid://8sl7wb6wdto8" path="res://enemies/generalPaths/down_right_init.tres" id="16_447tm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sabjh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -74,6 +76,10 @@ framerate_independent = true
 uncapped_independence = false
 target_constant_framerate = 30.0
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_r86lq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_iwpm1"]
+
 [node name="Test" type="Node3D"]
 
 [node name="Enviroment" type="Node3D" parent="."]
@@ -87,12 +93,34 @@ environment = SubResource("Environment_eminp")
 compositor = SubResource("Compositor_a15a1")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 7, 10)
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 7, 17)
 projection = 1
-size = 25.0
+size = 45.0
 
 [node name="AlienFactory" type="Node3D" parent="."]
 script = ExtResource("14_ftu11")
 
 [node name="AlienHandler" type="Node3D" parent="AlienFactory"]
 script = ExtResource("15_xx6ug")
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+curve = ExtResource("16_447tm")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-0.999954, 5.45929e-08, -8.74169e-08, 5.45918e-08, 0.999974, 0, 8.74187e-08, -4.77266e-15, -0.999933, -13, 3.46945e-18, 37)
+progress = 144.314
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
+mesh = SubResource("CylinderMesh_r86lq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+mesh = SubResource("BoxMesh_iwpm1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 37)
+mesh = SubResource("BoxMesh_iwpm1")
+
+[node name="Path3D2" type="Path3D" parent="."]
+curve = ExtResource("14_os4w3")

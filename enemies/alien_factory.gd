@@ -18,6 +18,7 @@ func generateAliens():
 			alien_handler.add_child(alien)
 			aliensRow.append(alien)
 			alien.id = iterations
+			alien.targetPosition = targetPosition
 			iterations+=1
 		alien_handler.aliens.append(aliensRow)
 		rowIterations+=1
