@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnvd0hlkaxatl"]
+
+[ext_resource type="PackedScene" uid="uid://b0o4vnyqc8rso" path="res://enemies/diferent/Models/green-alien.blend" id="1_eqf3i"]
+[ext_resource type="Script" path="res://enemies/diferent/Models/alienAnimation.gd" id="2_iokrm"]
+
+[node name="green-alien" instance=ExtResource("1_eqf3i")]
+script = ExtResource("2_iokrm")
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/position = Vector3(0, -0.299895, 0)
+bones/1/position = Vector3(0, 0.500613, 0)
+bones/1/rotation = Quaternion(-0.0826353, 0, 0, 0.99658)
+bones/6/rotation = Quaternion(0.232188, -0.224457, -0.574796, 0.751876)
+bones/9/rotation = Quaternion(0.232188, 0.224457, 0.574796, 0.751876)
+
+[node name="Cube_001" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(0.916233, 0, 0, 0, 0.697243, 0.150908, 0, -0.11643, 0.90372, 0, 0.114143, 0.0144568)
+
+[node name="Cube_002" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(0.844337, 0, 0, 0, 0.725822, 0.132726, 0, -0.121202, 0.794834, 0, 0.112737, 0.00603329)
+
+[node name="Cube_004" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(0.937626, 0, 0, 0, 0.725822, 0.164705, 0, -0.121202, 0.986343, 0, 0.114143, 0.0144568)
+
+[node name="Cube_006" parent="Armature/Skeleton3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 0.936944, 0.164705, 0, -0.156456, 0.986343, 0, 0.0790614, 0.0546628)
+
+[node name="Cube_008" parent="Armature/Skeleton3D" index="4"]
+transform = Transform3D(0.760118, -0.238459, -0.0911792, 0.231397, 0.968583, -0.0137452, 0.607187, -0.0706058, 0.119383, 0.191756, -0.509575, -0.0976777)
+
+[node name="Cube_009" parent="Armature/Skeleton3D" index="5"]
+transform = Transform3D(0.760118, -0.238459, -0.604449, 0.231397, 0.968583, -0.0911202, 0.607187, -0.0706057, 0.791415, 0.0237464, 0.172853, -0.147424)
+
+[node name="Cube_005" parent="Armature/Skeleton3D" index="6"]
+transform = Transform3D(0.760118, 0.238459, 0.604449, -0.231398, 0.968583, -0.0911202, -0.607187, -0.0706059, 0.791416, -0.0218901, 0.174644, -0.142726)
+
+[node name="Cube_007" parent="Armature/Skeleton3D" index="7"]
+transform = Transform3D(0.760118, 0.238459, 0.0911792, -0.231398, 0.968583, -0.0137452, -0.607187, -0.0706059, 0.119383, -0.189899, -0.507784, -0.0929793)
+
+[node name="Cube" parent="Armature/Skeleton3D" index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.200105, 0)
+
+[node name="Cube_003" parent="Armature/Skeleton3D" index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.342442, 0)
