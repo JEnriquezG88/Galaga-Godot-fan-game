@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://d3inl6td7tyr2"]
+[gd_scene load_steps=27 format=3 uid="uid://d3inl6td7tyr2"]
 
 [ext_resource type="Resource" uid="uid://cslvcweyejh3c" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_movement_component.tres" id="1_v5bj1"]
 [ext_resource type="Resource" uid="uid://iru8ynu04i00" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_rotation_component.tres" id="2_pkop6"]
@@ -17,6 +17,7 @@
 [ext_resource type="Curve3D" uid="uid://c4t4e7utbip44" path="res://enemies/generalPaths/down_left_init.tres" id="14_os4w3"]
 [ext_resource type="Script" path="res://enemies/alien_handler.gd" id="15_xx6ug"]
 [ext_resource type="Curve3D" uid="uid://8sl7wb6wdto8" path="res://enemies/generalPaths/down_right_init.tres" id="16_447tm"]
+[ext_resource type="PackedScene" uid="uid://bgdddnmfrt6fr" path="res://player/model/spacechip_model.tscn" id="18_b5tup"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sabjh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -85,7 +86,7 @@ target_constant_framerate = 30.0
 [node name="Enviroment" type="Node3D" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviroment"]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.625, -0.779006, -0.0502402, -0.515315, 0.363383, 0.776146, -0.586366, 0.510981, -0.628548, 0, 0, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
@@ -108,8 +109,8 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 
 curve = ExtResource("16_447tm")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-0.999954, 5.45929e-08, -8.74169e-08, 5.45918e-08, 0.999974, 0, 8.74187e-08, -4.77266e-15, -0.999933, -13, 3.46945e-18, 37)
-progress = 144.314
+transform = Transform3D(0.03916, 2.28899e-08, 0.999161, 4.6189e-08, 0.999974, -2.47166e-08, -0.999182, 4.71227e-08, 0.0391592, 5.52821, -2.18336e-07, 23.4292)
+progress = 111.178
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
 mesh = SubResource("CylinderMesh_r86lq")
@@ -124,3 +125,6 @@ mesh = SubResource("BoxMesh_iwpm1")
 
 [node name="Path3D2" type="Path3D" parent="."]
 curve = ExtResource("14_os4w3")
+
+[node name="spacechip" parent="." instance=ExtResource("18_b5tup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)

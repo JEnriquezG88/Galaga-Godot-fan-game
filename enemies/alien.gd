@@ -3,11 +3,12 @@ class_name alien
 
 var id : int
 var targetPosition : Vector3 = Vector3.ZERO
-var xOffsetTentative : float = 0.0
+var xOffsetTentative : float = 2.0
 var xOffset : float = 0.0
 var zOffsetTentative : float = 0.0
 var zOffset : float = 0.0
 var state = States.AlienStates.IDLE
+var mult : float = 6.0
 
 var path : Path3D
 var pathFollow : PathFollow3D
@@ -37,9 +38,12 @@ func moveToTarget(delta: float):
 	position = lerp(position, newPos, 15 * delta)
 	rotation = pathFollow.rotation
 	
-	if pathFollow.progress_ratio > 0.7:
-		xOffset = lerp(xOffset, xOffsetTentative, 5 * delta)
-		zOffset = lerp(zOffset, zOffsetTentative, 5 * delta)
+	if pathFollow.progress_ratio > 0.8:
+		xOffset = lerp(xOffset, xOffsetTentative, mult * delta)
+		zOffset = lerp(zOffset, zOffsetTentative, mult * delta)
+	
+	if abs(abs(position.x) - abs(targetPosition.x)) < 0.01 && abs(abs(position.z) - abs(targetPosition.z)) < 0.01:
+		state = States.AlienStates.ALIVE
 
 func initPath(pathSource) -> void:
 	path = Path3D.new()

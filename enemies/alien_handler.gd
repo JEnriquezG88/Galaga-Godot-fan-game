@@ -15,22 +15,22 @@ func initAliens() -> void:
 				alien.xOffsetTentative = alien.targetPosition.x + firstTarget.x
 				alien.initPath("res://enemies/generalPaths/down_left_init.tres")
 			alien.state = States.AlienStates.INITIALIZE
-		spawnAll()
+		spawnAllRightLeft()
+
+func spawnAllRightLeft():
+	spawnRightZone()
+	await get_tree().create_timer(3.0).timeout
+	spawnLeftZone()
 
 func spawnRightZone():
 	for aliensRow in aliens:
 		for alien in aliensRow:
 			if alien.targetPosition.x < 0:
 				await get_tree().create_timer(0.1).timeout
-				if alien.state != States.AlienStates.MOVE_TO_TARGET: alien.state = States.AlienStates.MOVE_TO_TARGET
+				if alien.state == States.AlienStates.INITIALIZE: alien.state = States.AlienStates.MOVE_TO_TARGET
 func spawnLeftZone():
 	for aliensRow in aliens:
 		for alien in aliensRow:
 			if alien.targetPosition.x > 0:
 				await get_tree().create_timer(0.1).timeout
-				if alien.state != States.AlienStates.MOVE_TO_TARGET: alien.state = States.AlienStates.MOVE_TO_TARGET
-
-func spawnAll():
-	spawnRightZone()
-	await get_tree().create_timer(3.0).timeout
-	spawnLeftZone()
+				if alien.state == States.AlienStates.INITIALIZE: alien.state = States.AlienStates.MOVE_TO_TARGET

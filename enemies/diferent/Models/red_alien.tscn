@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://djsinc0qqnd4m"]
+
+[ext_resource type="PackedScene" uid="uid://cmkwcmfhd3erq" path="res://enemies/diferent/Models/red-alien.blend" id="1_64mpf"]
+[ext_resource type="Script" path="res://enemies/diferent/Models/alienAnimation.gd" id="2_6jhm3"]
+
+[node name="red-alien" instance=ExtResource("1_64mpf")]
+script = ExtResource("2_6jhm3")
+
+[node name="Cube_001" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(0.260103, 0, 0, 0, 0.184592, -4.24232e-09, 0, 3.32059e-09, 0.235831, 0, 0.328241, -1.86265e-09)
+
+[node name="Cube_003" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0707287, -1.86265e-09)
+
+[node name="Cube_004" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(0.10045, 0, 0, 0, 0.10045, 0, 0, 0, 0.10045, -0.0949057, 0.397796, -0.232216)
+
+[node name="Cube_005" parent="Armature/Skeleton3D" index="3"]
+transform = Transform3D(1, 0, -2.79396e-08, -1.01724e-14, 1, 6.58008e-09, 2.79396e-08, -6.58008e-09, 1, 1.49012e-08, 1.49012e-08, -2.01105e-08)
+
+[node name="Cube_002" parent="Armature/Skeleton3D" index="4"]
+transform = Transform3D(1, -1.13737e-24, 3.63216e-08, -1.02039e-16, 1, 1.30539e-08, -3.63216e-08, -1.30539e-08, 1, 2.98023e-08, 1.49012e-08, 2.54266e-08)
+
+[node name="Cube" parent="Armature/Skeleton3D" index="5"]
+transform = Transform3D(0.263755, 0, 0, 0, 0.25828, 0, 0, 0, 0.263755, 0, -0.0292712, 0)

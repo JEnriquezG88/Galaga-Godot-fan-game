@@ -1,6 +1,6 @@
 extends Node
 
-var level : int = 88
+var level : int = 1
 var targets : Array
 
 func _init() -> void:

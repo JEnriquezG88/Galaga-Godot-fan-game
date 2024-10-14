@@ -1,26 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://byq5hjmwr76mb"]
+[gd_scene load_steps=3 format=3 uid="uid://byq5hjmwr76mb"]
 
 [ext_resource type="Script" path="res://enemies/diferent/red_alien.gd" id="1_cltsj"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfgkm"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_7k5jm"]
-material = SubResource("StandardMaterial3D_vfgkm")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_orl1k"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="PrismMesh" id="PrismMesh_tqdsa"]
-material = SubResource("StandardMaterial3D_orl1k")
-size = Vector3(1, 0.5, 1)
+[ext_resource type="PackedScene" uid="uid://djsinc0qqnd4m" path="res://enemies/diferent/Models/red_alien.tscn" id="2_kt41l"]
 
 [node name="red_alien" type="Node3D"]
 script = ExtResource("1_cltsj")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_7k5jm")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, 2.17987e-08, 1.08993e-08, -0.749348)
-mesh = SubResource("PrismMesh_tqdsa")
+[node name="red-alien" parent="." instance=ExtResource("2_kt41l")]
+transform = Transform3D(-1, 0, 8.74228e-08, -8.74228e-08, -4.37114e-08, -1, 3.82137e-15, -1, 4.37114e-08, 0, 0, 0)

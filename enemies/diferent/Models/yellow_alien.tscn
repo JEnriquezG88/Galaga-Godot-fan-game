@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://gldykfjgbl02"]
+
+[ext_resource type="PackedScene" uid="uid://m23ce0rsvkf8" path="res://enemies/diferent/Models/yellow-alien.blend" id="1_tso7q"]
+[ext_resource type="Script" path="res://enemies/diferent/Models/alienAnimation.gd" id="2_x1ci4"]
+
+[node name="yellow-alien" instance=ExtResource("1_tso7q")]
+script = ExtResource("2_x1ci4")
+
+[node name="Cube_004" parent="Armature/Skeleton3D" index="0"]
+transform = Transform3D(0.10045, 0, 0, 0, 0.10045, 0, 0, 0, 0.10045, -0.0949057, 0.397796, -0.232216)
+
+[node name="Cube_002" parent="Armature/Skeleton3D" index="1"]
+transform = Transform3D(0.256711, 0, -5.33381e-10, -2.93445e-15, 0.256711, -9.14313e-11, 8.05976e-09, 1.38159e-09, 0.0169887, -0.455897, -0.152774, -5.10534e-08)
+
+[node name="Cube_001" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(0.256711, -5.74434e-25, 4.58824e-10, -1.94774e-17, 0.256711, 3.90135e-10, -6.93316e-09, -5.89522e-09, 0.0169887, -0.455897, -0.152774, 3.33064e-08)
