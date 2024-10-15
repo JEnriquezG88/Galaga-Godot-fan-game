@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://6tx5yil5jyrj"]
+
+[ext_resource type="Material" uid="uid://crmc57x4j71my" path="res://player/playerAssets/bullet.tres" id="2_hng2a"]
+[ext_resource type="Script" path="res://player/playerAssets/bullet.gd" id="2_kpotn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qhdcj"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1kxk2"]
+material = ExtResource("2_hng2a")
+size = Vector3(0.1, 0.1, 0.5)
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_kpotn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+shape = SubResource("BoxShape3D_qhdcj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+mesh = SubResource("BoxMesh_1kxk2")
+skeleton = NodePath("../..")

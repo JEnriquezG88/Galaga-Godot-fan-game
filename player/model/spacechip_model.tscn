@@ -4,7 +4,14 @@
 [ext_resource type="Script" path="res://player/model/spacechip.gd" id="2_bdyf0"]
 
 [node name="spacechip" instance=ExtResource("1_e6g4y")]
+script = ExtResource("2_bdyf0")
 
 [node name="Spacechip" parent="." index="0"]
-transform = Transform3D(0.114761, 0, 0, 0, 0.114761, 0, 0, 0, 0.114761, 0, -0.005, 0.55833)
-script = ExtResource("2_bdyf0")
+transform = Transform3D(0.114761, 0, 0, 0, 0.114761, 0, 0, 0, 0.114761, 0, 0.0209103, 0.55833)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.895253, 0.445557, 0, -0.445557, 0.895253, 0, 1.51776, 3)
+light_energy = 3.0
+shadow_enabled = true
+shadow_blur = 0.05
+spot_range = 6.0

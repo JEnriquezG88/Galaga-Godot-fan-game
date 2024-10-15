@@ -9,13 +9,19 @@ var zOffsetTentative : float = 0.0
 var zOffset : float = 0.0
 var state = States.AlienStates.IDLE
 var mult : float = 6.0
-
 var path : Path3D
 var pathFollow : PathFollow3D
+var playerControllerPosition : Vector3 = Vector3.ZERO
+var explosionPosition : Vector3 = Vector3.ZERO
+var lives : int = 5
+@onready var model: Node3D = $model
+@onready var player_direction: Node3D = $playerDirection
+@onready var area_3d: Area3D = $Area3D
+@onready var collision_shape_3d: CollisionShape3D = $Area3D/CollisionShape3D
+
 
 func _ready() -> void:
 	visible = false
-
 
 func _process(delta: float) -> void:
 	match state:
@@ -23,12 +29,19 @@ func _process(delta: float) -> void:
 			initialize()
 		States.AlienStates.MOVE_TO_TARGET:
 			moveToTarget(delta)
+		States.AlienStates.ATTACK:
+			basicAttack(delta)
+		States.AlienStates.RESPAWN:
+			respawn(delta)
 
 func initialize():
 	position = pathFollow.position
+	xOffset = 0
+	zOffset = 0
 
 func moveToTarget(delta: float):
-	if !visible : visible = true
+	if pathFollow.progress_ratio > 0.1:
+		if !visible : visible = true
 	if pathFollow.progress_ratio <= 1: pathFollow.progress_ratio += delta / 2
 	var newPos
 	if targetPosition.x < 0:
@@ -36,7 +49,7 @@ func moveToTarget(delta: float):
 	else:
 		newPos = Vector3(pathFollow.position.x + xOffset, pathFollow.position.y, pathFollow.position.z + zOffset)
 	position = lerp(position, newPos, 15 * delta)
-	rotation = pathFollow.rotation
+	model.rotation = pathFollow.rotation
 	
 	if pathFollow.progress_ratio > 0.8:
 		xOffset = lerp(xOffset, xOffsetTentative, mult * delta)
@@ -50,5 +63,61 @@ func initPath(pathSource) -> void:
 	path.curve = load(pathSource)
 	pathFollow = PathFollow3D.new()
 	pathFollow.loop = false
+	pathFollow.use_model_front = true
 	add_child(path)
 	path.add_child(pathFollow)
+
+func basicAttack(delta: float):
+	var rotationVelocity : float
+	if position.z > 8:
+		rotationVelocity = 5
+	elif position.z > 1:
+		rotationVelocity = 1
+	else:
+		rotationVelocity = 0
+	player_direction.look_at(GlobalReferences.player_controller_position)
+	model.rotation.y = lerp_angle(model.rotation.y, player_direction.rotation.y + PI, rotationVelocity * delta)
+	var direction = model.basis.z.normalized()
+	position += direction * 40 * delta
+	if position.z < -10:
+		visible = false
+		pathFollow.progress_ratio = 0
+		state = States.AlienStates.IDLE
+		endAttack()
+
+func endAttack():
+	state = States.AlienStates.INITIALIZE
+	await get_tree().create_timer(3).timeout
+	state = States.AlienStates.MOVE_TO_TARGET
+
+func dead():
+	visible = false
+	position = targetPosition + Vector3(0,0,20)
+	collision_shape_3d.disabled = true
+	if lives > 0:
+		model.rotation.y = PI
+		var time = randi_range(0, 3)
+		await get_tree().create_timer(time).timeout
+		collision_shape_3d.disabled = false
+		state = States.AlienStates.RESPAWN
+		visible = true
+		lives-=1
+	else:
+		print("TotalDead")
+		state = States.AlienStates.TOTAL_DEAD
+
+func respawn(delta):
+	position.z = lerp(position.z, targetPosition.z, 10 * delta)
+	if abs(targetPosition.z - position.z) < 0.01:
+		model.rotation.y = lerp_angle(model.rotation.y, 2 * PI, 10*delta)
+	if abs((2 * PI) - model.rotation.y) < 0.01:
+		model.rotation.y = 0.0
+		state = States.AlienStates.ALIVE
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if position.z < 38:
+		if body.collision_layer & (1 << 1) != 0:
+			body.queue_free()
+		state = States.AlienStates.DEAD
+		explosionPosition = position
+		dead()

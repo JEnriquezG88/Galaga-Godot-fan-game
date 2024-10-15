@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://d3inl6td7tyr2"]
+[gd_scene load_steps=24 format=3 uid="uid://d3inl6td7tyr2"]
 
 [ext_resource type="Resource" uid="uid://cslvcweyejh3c" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_movement_component.tres" id="1_v5bj1"]
 [ext_resource type="Resource" uid="uid://iru8ynu04i00" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_rotation_component.tres" id="2_pkop6"]
@@ -14,10 +14,8 @@
 [ext_resource type="Resource" uid="uid://d1ckx52l74p0" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_tile_variance_stage.tres" id="12_uvdts"]
 [ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/BaseClasses/mb_compositor.gd" id="13_8bnpm"]
 [ext_resource type="Script" path="res://enemies/alien_factory.gd" id="14_ftu11"]
-[ext_resource type="Curve3D" uid="uid://c4t4e7utbip44" path="res://enemies/generalPaths/down_left_init.tres" id="14_os4w3"]
 [ext_resource type="Script" path="res://enemies/alien_handler.gd" id="15_xx6ug"]
-[ext_resource type="Curve3D" uid="uid://8sl7wb6wdto8" path="res://enemies/generalPaths/down_right_init.tres" id="16_447tm"]
-[ext_resource type="PackedScene" uid="uid://bgdddnmfrt6fr" path="res://player/model/spacechip_model.tscn" id="18_b5tup"]
+[ext_resource type="PackedScene" uid="uid://cq2iq2mq5dj2p" path="res://player/player.tscn" id="16_xvar1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sabjh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -33,8 +31,12 @@ sky = SubResource("Sky_ovlga")
 ambient_light_source = 3
 reflected_light_source = 2
 tonemap_mode = 2
+ssr_enabled = true
 ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
 glow_enabled = true
+volumetric_fog_density = 0.278
 
 [sub_resource type="CompositorEffect" id="CompositorEffect_h1hjp"]
 resource_local_to_scene = false
@@ -77,9 +79,8 @@ framerate_independent = true
 uncapped_independence = false
 target_constant_framerate = 30.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_r86lq"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_iwpm1"]
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_owdss"]
+dof_blur_far_distance = 52.77
 
 [node name="Test" type="Node3D"]
 
@@ -87,14 +88,17 @@ target_constant_framerate = 30.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviroment"]
 transform = Transform3D(-0.625, -0.779006, -0.0502402, -0.515315, 0.363383, 0.776146, -0.586366, 0.510981, -0.628548, 0, 0, 0)
+visible = false
 shadow_enabled = true
+directional_shadow_max_distance = 8192.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
 environment = SubResource("Environment_eminp")
 compositor = SubResource("Compositor_a15a1")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 7, 17)
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.72665, 17)
+attributes = SubResource("CameraAttributesPractical_owdss")
 projection = 1
 size = 45.0
 
@@ -104,27 +108,5 @@ script = ExtResource("14_ftu11")
 [node name="AlienHandler" type="Node3D" parent="AlienFactory"]
 script = ExtResource("15_xx6ug")
 
-[node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
-curve = ExtResource("16_447tm")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.03916, 2.28899e-08, 0.999161, 4.6189e-08, 0.999974, -2.47166e-08, -0.999182, 4.71227e-08, 0.0391592, 5.52821, -2.18336e-07, 23.4292)
-progress = 111.178
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
-mesh = SubResource("CylinderMesh_r86lq")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
-mesh = SubResource("BoxMesh_iwpm1")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 37)
-mesh = SubResource("BoxMesh_iwpm1")
-
-[node name="Path3D2" type="Path3D" parent="."]
-curve = ExtResource("14_os4w3")
-
-[node name="spacechip" parent="." instance=ExtResource("18_b5tup")]
+[node name="Player" parent="." instance=ExtResource("16_xvar1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)

@@ -12,6 +12,8 @@ func distSelect(dist: int) -> Array:
 			return secondDist()
 		3:
 			return thirdDist()
+		4:
+			return fourthDist()
 		88:
 			return HHDist()
 		_:
@@ -40,6 +42,11 @@ func thirdDist() -> Array:
 	dist.append([0, 0, 0, 1, 1, 1, 1, 0, 0, 0])
 	dist.append([0, 0, 0, 1, 1, 1, 1, 0, 0, 0])
 	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+	return dist
+func fourthDist() -> Array:
+	var dist : Array = []
+	for i in range(5):
+		dist.append([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
 	return dist
 func HHDist() -> Array:
 	var dist : Array = []

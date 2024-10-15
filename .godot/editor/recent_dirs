@@ -1,5 +1,9 @@
+res://player/playerAssets
 res://globals/scripts
+res://globals/effects
 res://player/model
+res://player/playerAssets/
+res://player
 res://enemies/diferent/Models
 res://enemies/diferent
 res://enemies

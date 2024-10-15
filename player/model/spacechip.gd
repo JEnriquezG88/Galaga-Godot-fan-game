@@ -1,7 +1,12 @@
-extends MeshInstance3D
+extends Node3D
 
 var rotationVelocity : float = 10.0
-var rotationTarget : float = 0.8
+var rotationTarget : float = 1
+var canRotate : bool = false
+@onready var spacechip: MeshInstance3D = $Spacechip
 
 func _process(delta: float) -> void:
-	rotation.z = lerp_angle(rotation.z, rotationTarget * GlobalInput.leftAxis.x, rotationVelocity * delta)
+	if canRotate:
+		spacechip.rotation.z = lerp_angle(spacechip.rotation.z, rotationTarget * GlobalInput.leftAxis.x, rotationVelocity * delta)
+	else:
+		spacechip.rotation.z = lerp_angle(spacechip.rotation.z, 0.0, rotationVelocity * delta)
