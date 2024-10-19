@@ -133,6 +133,7 @@ draw_pass_1 = SubResource("SphereMesh_7sq1c")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.85735, 0)
+visible = false
 emitting = false
 amount = 12
 lifetime = 1.5

@@ -13,7 +13,6 @@ config_version=5
 config/name="Galaga-FanGame"
 run/main_scene="res://levels/test.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-run/max_fps=60
 boot_splash/image="res://globals/resources/icons/splash-screen.png"
 config/icon="res://globals/resources/icons/icon_monochrome_dark.png"
 

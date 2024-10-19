@@ -2,4 +2,4 @@ extends Label
 
 
 func _process(delta: float) -> void:
-	text = str(Level.score)
+	text = str(Level.hiScore)

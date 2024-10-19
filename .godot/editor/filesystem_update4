@@ -10,3 +10,15 @@ res://globals/effects/explosion.tscn
 res://player/player.tscn
 res://globals/Menus/start.tscn
 res://default_bus_layout.tres
+res://enemies/alien.gd
+res://globals/Menus/menu.gd
+res://globals/Menus/blink.gd
+res://enemies/generalPaths/down_left_init.tres
+res://enemies/generalPaths/down_right_init.tres
+res://enemies/diferent/green_alien.gd
+res://player/player.gd
+res://globals/scripts/Level.gd
+res://player/model/spacechip.gd
+res://globals/Menus/press_start.gd
+res://globals/Menus/hi_score.gd
+res://player/model/lives.tscn

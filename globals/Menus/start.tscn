@@ -1,16 +1,36 @@
-[gd_scene load_steps=7 format=3 uid="uid://cptrfm0wqusom"]
+[gd_scene load_steps=13 format=3 uid="uid://cptrfm0wqusom"]
 
 [ext_resource type="Script" path="res://globals/Menus/menu.gd" id="1_5ngoy"]
 [ext_resource type="FontFile" uid="uid://dd0wi8lkhv1kl" path="res://globals/resources/fonts/PixelifySans-Regular.ttf" id="1_jmyq0"]
 [ext_resource type="Script" path="res://globals/Menus/press_start.gd" id="3_5hxox"]
+[ext_resource type="Script" path="res://globals/Menus/blink.gd" id="3_grf3p"]
 [ext_resource type="AudioStream" uid="uid://clxaqai0gjho1" path="res://globals/effects/StartGame.mp3" id="4_egiji"]
+[ext_resource type="Script" path="res://globals/Menus/hi_score.gd" id="5_yj1v2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_q8jt2"]
 font = ExtResource("1_jmyq0")
 font_size = 64
+font_color = Color(0, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gs08o"]
+font = ExtResource("1_jmyq0")
+font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0763p"]
 font = ExtResource("1_jmyq0")
+
+[sub_resource type="LabelSettings" id="LabelSettings_kq5m8"]
+font = ExtResource("1_jmyq0")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_dosci"]
+font = ExtResource("1_jmyq0")
+font_size = 64
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_865mm"]
+font = ExtResource("1_jmyq0")
+font_size = 32
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -31,26 +51,110 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PressStart" type="Label" parent="PressStart"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PressStart"]
 layout_mode = 2
+
+[node name="PressStart" type="Label" parent="PressStart/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 text = "Press Start"
 label_settings = SubResource("LabelSettings_q8jt2")
+horizontal_alignment = 1
+script = ExtResource("3_grf3p")
 
 [node name="Score" type="MarginContainer" parent="."]
 layout_mode = 1
-offset_left = 32.0
-offset_top = 32.0
-offset_right = 230.0
-offset_bottom = 71.0
+offset_right = 94.0
+offset_bottom = 44.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Score"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Score"]
 layout_mode = 2
 
-[node name="Score" type="Label" parent="Score/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Score/VBoxContainer"]
 layout_mode = 2
-text = "Score: "
+
+[node name="PlayerScore" type="Label" parent="Score/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Player:"
+label_settings = SubResource("LabelSettings_gs08o")
+
+[node name="Score" type="Label" parent="Score/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "00"
 label_settings = SubResource("LabelSettings_0763p")
 script = ExtResource("3_5hxox")
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="Score/VBoxContainer"]
+layout_mode = 2
+
+[node name="HiScore" type="Label" parent="Score/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "HI-Score:"
+label_settings = SubResource("LabelSettings_gs08o")
+
+[node name="HiScore2" type="Label" parent="Score/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "00"
+label_settings = SubResource("LabelSettings_0763p")
+script = ExtResource("5_yj1v2")
+
 [node name="sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_egiji")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -76.5
+offset_top = -77.0
+offset_right = 76.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="GridContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="name" type="Label" parent="GridContainer/MarginContainer"]
+layout_mode = 2
+text = "By: JUAN"
+label_settings = SubResource("LabelSettings_kq5m8")
+horizontal_alignment = 1
+
+[node name="GridContainer2" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GridContainer2"]
+custom_minimum_size = Vector2(0, 215.245)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="hi-score" type="Label" parent="GridContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "HI-SCORE"
+label_settings = SubResource("LabelSettings_dosci")
+horizontal_alignment = 1
+
+[node name="score" type="Label" parent="GridContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "00"
+label_settings = SubResource("LabelSettings_865mm")
+horizontal_alignment = 1

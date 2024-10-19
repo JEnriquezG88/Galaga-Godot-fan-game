@@ -29,6 +29,8 @@ func _process(delta: float) -> void:
 			initialize()
 		States.AlienStates.MOVE_TO_TARGET:
 			moveToTarget(delta)
+		States.AlienStates.ALIVE:
+			print("Alive")
 		States.AlienStates.ATTACK:
 			basicAttack(delta)
 		States.AlienStates.RESPAWN:
@@ -94,7 +96,7 @@ func endAttack():
 func dead():
 	#visible = false
 	explosion()
-	Level.score += 1
+	Level.score += 100
 	var parent = get_parent_node_3d()
 	parent.dead()
 	position = targetPosition + Vector3(0,0,20)
@@ -106,7 +108,6 @@ func dead():
 		visible = true
 		lives-=1
 	else:
-		print("TotalDead")
 		state = States.AlienStates.TOTAL_DEAD
 
 func explosion():
