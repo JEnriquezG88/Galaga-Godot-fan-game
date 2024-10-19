@@ -1,8 +1,10 @@
-extends Node
+extends Node3D
 
 var aliens : Array
 var firstTarget : Vector3 = Vector3(-13.0, 0.0, 37.0)
 var attack : bool
+var canAttack : bool = true
+@onready var attackSound: AudioStreamPlayer3D = $Attack
 
 func initAliens() -> void:
 	for aliensRow in aliens:
@@ -39,23 +41,34 @@ func spawnLeftZone():
 				if alien.state == States.AlienStates.INITIALIZE: alien.state = States.AlienStates.MOVE_TO_TARGET
 
 func enemyAttack():
-	var iterations : int = 0
-	for aliensRow in aliens:
-		for alien in aliensRow:
-			if alien.state == States.AlienStates.ALIVE:
+	if canAttack:
+		var iterations : int = 0
+		for aliensRow in aliens:
+			for alien in aliensRow:
+				if alien.state == States.AlienStates.ALIVE:
+					iterations+=1
+		var attackAlien = randi_range(0, iterations - 1)
+		iterations = 0
+		for aliensRow in aliens:
+			for alien in aliensRow:
 				iterations+=1
-	var attackAlien = randi_range(0, iterations - 1)
-	iterations = 0
-	for aliensRow in aliens:
-		for alien in aliensRow:
-			iterations+=1
-			if iterations == attackAlien && alien.state == States.AlienStates.ALIVE:
-				alien.state = States.AlienStates.ATTACK
-	attackAlien = randi_range(0, iterations - 1)/10
-	await get_tree().create_timer(attackAlien/2).timeout
-	enemyAttack()
+				if iterations == attackAlien && alien.state == States.AlienStates.ALIVE:
+					attackSound.pitch_scale = randf_range(0.5,1.5)
+					attackSound.play()
+					alien.state = States.AlienStates.ATTACK
+		attackAlien = randi_range(0, iterations - 1)/10
+		await get_tree().create_timer(attackAlien/2).timeout
+		enemyAttack()
 
 func _process(delta: float) -> void:
 	if attack:
 		attack = false
 		enemyAttack()
+
+func dead() -> void:
+	var parent = get_parent_node_3d()
+	parent.dead()
+
+
+func _on_player_dead_event() -> void:
+	canAttack = false

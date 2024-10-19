@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://cptrfm0wqusom"]
+
+[ext_resource type="Script" path="res://globals/Menus/menu.gd" id="1_5ngoy"]
+[ext_resource type="FontFile" uid="uid://dd0wi8lkhv1kl" path="res://globals/resources/fonts/PixelifySans-Regular.ttf" id="1_jmyq0"]
+[ext_resource type="Script" path="res://globals/Menus/press_start.gd" id="3_5hxox"]
+[ext_resource type="AudioStream" uid="uid://clxaqai0gjho1" path="res://globals/effects/StartGame.mp3" id="4_egiji"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_q8jt2"]
+font = ExtResource("1_jmyq0")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_0763p"]
+font = ExtResource("1_jmyq0")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_5ngoy")
+
+[node name="PressStart" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PressStart" type="Label" parent="PressStart"]
+layout_mode = 2
+text = "Press Start"
+label_settings = SubResource("LabelSettings_q8jt2")
+
+[node name="Score" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 230.0
+offset_bottom = 71.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Score"]
+layout_mode = 2
+
+[node name="Score" type="Label" parent="Score/HBoxContainer"]
+layout_mode = 2
+text = "Score: "
+label_settings = SubResource("LabelSettings_0763p")
+script = ExtResource("3_5hxox")
+
+[node name="sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_egiji")

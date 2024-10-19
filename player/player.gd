@@ -7,10 +7,11 @@ var movement : float = 0.0
 var movementVelocity : float = 30.0
 var newPositionForNewShip : float = 0.0
 var states = States.PlayerStates.IDLE
+@onready var player_audio: AudioStreamPlayer3D = $PlayerAudio
+
+signal deadEvent
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("Back"):
-		addSpacechip()
 	if Input.is_action_just_pressed("Shoot"):
 		shoot()
 	match states:
@@ -58,8 +59,16 @@ func spaceshipRotation(value : bool) -> void:
 			i.canRotate = value
 
 func shoot() -> void:
+	player_audio.stream = preload("res://player/effects/shoot.mp3")
+	player_audio.play()
 	for i in range(spacechips.size()):
 		var bullet = (preload("res://player/playerAssets/bullet.tscn")).instantiate()
 		bullet.position.x = spacechip_controller.position.x - 3 * i
 		bullet.position.z = 1.9
 		add_child(bullet)
+
+func dead():
+	deadEvent.emit()
+
+func _on_control_start_game() -> void:
+	addSpacechip()

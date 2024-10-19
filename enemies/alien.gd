@@ -18,7 +18,7 @@ var lives : int = 5
 @onready var player_direction: Node3D = $playerDirection
 @onready var area_3d: Area3D = $Area3D
 @onready var collision_shape_3d: CollisionShape3D = $Area3D/CollisionShape3D
-
+@onready var explosionContainer: Node3D = $Explosion
 
 func _ready() -> void:
 	visible = false
@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 			basicAttack(delta)
 		States.AlienStates.RESPAWN:
 			respawn(delta)
+	explosionContainer.global_position = explosionPosition
 
 func initialize():
 	position = pathFollow.position
@@ -91,20 +92,27 @@ func endAttack():
 	state = States.AlienStates.MOVE_TO_TARGET
 
 func dead():
-	visible = false
+	#visible = false
+	explosion()
+	Level.score += 1
+	var parent = get_parent_node_3d()
+	parent.dead()
 	position = targetPosition + Vector3(0,0,20)
-	collision_shape_3d.disabled = true
 	if lives > 0:
 		model.rotation.y = PI
 		var time = randi_range(0, 3)
 		await get_tree().create_timer(time).timeout
-		collision_shape_3d.disabled = false
 		state = States.AlienStates.RESPAWN
 		visible = true
 		lives-=1
 	else:
 		print("TotalDead")
 		state = States.AlienStates.TOTAL_DEAD
+
+func explosion():
+	explosionPosition = position
+	var explosionEffect = preload("res://globals/effects/explosion.tscn").instantiate()
+	explosionContainer.add_child(explosionEffect)
 
 func respawn(delta):
 	position.z = lerp(position.z, targetPosition.z, 10 * delta)
@@ -118,6 +126,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if position.z < 38:
 		if body.collision_layer & (1 << 1) != 0:
 			body.queue_free()
+		else:
+			var colisionParent = body.get_parent_node_3d()
+			colisionParent.dead()
 		state = States.AlienStates.DEAD
-		explosionPosition = position
 		dead()

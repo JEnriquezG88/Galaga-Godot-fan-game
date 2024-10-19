@@ -2,6 +2,7 @@ extends Node
 
 var level : int = 1
 var targets : Array
+var score : int = 0
 
 func _init() -> void:
 	generateTargets()

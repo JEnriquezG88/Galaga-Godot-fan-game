@@ -10,3 +10,9 @@ func _process(delta: float) -> void:
 		spacechip.rotation.z = lerp_angle(spacechip.rotation.z, rotationTarget * GlobalInput.leftAxis.x, rotationVelocity * delta)
 	else:
 		spacechip.rotation.z = lerp_angle(spacechip.rotation.z, 0.0, rotationVelocity * delta)
+
+
+func dead():
+	var parent = get_parent_node_3d().get_parent_node_3d()
+	parent.dead()
+	queue_free()

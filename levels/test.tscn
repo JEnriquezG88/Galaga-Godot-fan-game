@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d3inl6td7tyr2"]
+[gd_scene load_steps=27 format=3 uid="uid://d3inl6td7tyr2"]
 
 [ext_resource type="Resource" uid="uid://cslvcweyejh3c" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_movement_component.tres" id="1_v5bj1"]
 [ext_resource type="Resource" uid="uid://iru8ynu04i00" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_rotation_component.tres" id="2_pkop6"]
@@ -15,7 +15,10 @@
 [ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/BaseClasses/mb_compositor.gd" id="13_8bnpm"]
 [ext_resource type="Script" path="res://enemies/alien_factory.gd" id="14_ftu11"]
 [ext_resource type="Script" path="res://enemies/alien_handler.gd" id="15_xx6ug"]
+[ext_resource type="AudioStream" uid="uid://qxjv57lokxd0" path="res://enemies/effects/attack.mp3" id="16_7ty4f"]
+[ext_resource type="AudioStream" uid="uid://rs5ggger345j" path="res://globals/effects/Explosion.mp3" id="16_27gks"]
 [ext_resource type="PackedScene" uid="uid://cq2iq2mq5dj2p" path="res://player/player.tscn" id="16_xvar1"]
+[ext_resource type="PackedScene" uid="uid://cptrfm0wqusom" path="res://globals/Menus/start.tscn" id="19_7ccx1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sabjh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -108,5 +111,23 @@ script = ExtResource("14_ftu11")
 [node name="AlienHandler" type="Node3D" parent="AlienFactory"]
 script = ExtResource("15_xx6ug")
 
+[node name="Attack" type="AudioStreamPlayer3D" parent="AlienFactory/AlienHandler"]
+stream = ExtResource("16_7ty4f")
+bus = &"Aliens"
+
+[node name="AlienAudio" type="AudioStreamPlayer3D" parent="AlienFactory"]
+bus = &"Aliens"
+
+[node name="ExplosionAudio" type="AudioStreamPlayer3D" parent="AlienFactory"]
+stream = ExtResource("16_27gks")
+bus = &"GeneralEffects"
+
 [node name="Player" parent="." instance=ExtResource("16_xvar1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="Control" parent="." instance=ExtResource("19_7ccx1")]
+
+[connection signal="deadEvent" from="Player" to="AlienFactory/AlienHandler" method="_on_player_dead_event"]
+[connection signal="deadEvent" from="Player" to="Control" method="_on_player_dead_event"]
+[connection signal="startGame" from="Control" to="AlienFactory" method="_on_control_start_game"]
+[connection signal="startGame" from="Control" to="Player" method="_on_control_start_game"]
