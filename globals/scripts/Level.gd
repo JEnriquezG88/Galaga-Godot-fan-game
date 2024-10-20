@@ -1,10 +1,10 @@
 extends Node
 
-var level : int = 4
+var level : int = 5
 var targets : Array
 var score : int = 0
 var hiScore : int = 3000
-
+var gameOver : bool = false
 func _init() -> void:
 	generateTargets()
 

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr7a6b1n1eg77"]
+
+[ext_resource type="PackedScene" uid="uid://sd1cfpl7a5i5" path="res://player/playerAssets/redSpacechip.blend" id="1_2dxjw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uoq16"]
+size = Vector3(2, 1, 1.85364)
+
+[node name="redSpacechip" instance=ExtResource("1_2dxjw")]
+
+[node name="Spacechip" parent="." index="0"]
+transform = Transform3D(0.114761, 0, 0, 0, 0.114761, 0, 0, 0, 0.114761, 0, 0.021, 0.558)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.895253, 0.445557, 0, -0.445557, 0.895253, 0, 1.51776, 3)
+shadow_enabled = true
+shadow_blur = 0.05
+spot_range = 6.0
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.801163)
+shape = SubResource("BoxShape3D_uoq16")

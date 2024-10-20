@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cuujmkl512ovk"]
+
+[ext_resource type="Script" path="res://enemies/effects/tract_beam.gd" id="1_bwsmu"]
+[ext_resource type="Shader" uid="uid://fip146upwnb1" path="res://enemies/effects/TrackShader.tres" id="1_uhisa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p05xv"]
+render_priority = 0
+shader = ExtResource("1_uhisa")
+shader_parameter/Color = Color(0.204877, 0.649252, 0.795907, 1)
+shader_parameter/Speed = Vector2(0, -0.5)
+shader_parameter/NoiseSpeed = Vector2(1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5mem3"]
+top_radius = 0.01
+bottom_radius = 3.0
+height = 8.0
+
+[node name="TractBeam" type="Node3D"]
+script = ExtResource("1_bwsmu")
+
+[node name="Beam" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 4.37114e-08, -4.37114e-08, -4.37114e-08, -4.37114e-08, -1, -4.37114e-08, 1, -4.37114e-08, -1.74846e-07, 1.74846e-07, -4)
+material_override = SubResource("ShaderMaterial_p05xv")
+mesh = SubResource("CylinderMesh_5mem3")

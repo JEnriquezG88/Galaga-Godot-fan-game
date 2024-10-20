@@ -12,30 +12,18 @@ var mult : float = 6.0
 var path : Path3D
 var pathFollow : PathFollow3D
 var playerControllerPosition : Vector3 = Vector3.ZERO
-var explosionPosition : Vector3 = Vector3.ZERO
 var lives : int = 5
+var attack : int = 0
+var endUniqueAttack : bool = false
+var addLife : bool = false
+var captureSpaceship : bool = false
 @onready var model: Node3D = $model
 @onready var player_direction: Node3D = $playerDirection
 @onready var area_3d: Area3D = $Area3D
 @onready var collision_shape_3d: CollisionShape3D = $Area3D/CollisionShape3D
-@onready var explosionContainer: Node3D = $Explosion
 
 func _ready() -> void:
 	visible = false
-
-func _process(delta: float) -> void:
-	match state:
-		States.AlienStates.INITIALIZE:
-			initialize()
-		States.AlienStates.MOVE_TO_TARGET:
-			moveToTarget(delta)
-		States.AlienStates.ALIVE:
-			print("Alive")
-		States.AlienStates.ATTACK:
-			basicAttack(delta)
-		States.AlienStates.RESPAWN:
-			respawn(delta)
-	explosionContainer.global_position = explosionPosition
 
 func initialize():
 	position = pathFollow.position
@@ -111,9 +99,10 @@ func dead():
 		state = States.AlienStates.TOTAL_DEAD
 
 func explosion():
-	explosionPosition = position
+	var parent = get_parent_node_3d()
 	var explosionEffect = preload("res://globals/effects/explosion.tscn").instantiate()
-	explosionContainer.add_child(explosionEffect)
+	explosionEffect.position = position
+	parent.add_child(explosionEffect)
 
 func respawn(delta):
 	position.z = lerp(position.z, targetPosition.z, 10 * delta)
@@ -126,8 +115,13 @@ func respawn(delta):
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if position.z < 38:
 		if body.collision_layer & (1 << 1) != 0:
+			if addLife:
+				addLife = false
+				get_parent_node_3d().addLife.emit()
 			body.queue_free()
 		else:
+			if addLife:
+				addLife = false
 			var colisionParent = body.get_parent_node_3d()
 			colisionParent.dead()
 		state = States.AlienStates.DEAD

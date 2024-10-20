@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dc5y1lstx6rm5"]
+
+[ext_resource type="Script" path="res://enemies/capture.gd" id="1_gsfks"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u0twb"]
+size = Vector3(2, 1, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h27fq"]
+size = Vector3(4, 1, 2)
+
+[node name="Capture" type="Node3D"]
+script = ExtResource("1_gsfks")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_u0twb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+visible = false
+mesh = SubResource("BoxMesh_h27fq")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://player/model/spacechip.gd" id="2_bdyf0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_otxyq"]
-size = Vector3(3, 1, 3)
+size = Vector3(2, 1, 1.85364)
 
 [node name="spacechip" instance=ExtResource("1_e6g4y")]
 script = ExtResource("2_bdyf0")
@@ -20,10 +20,8 @@ shadow_blur = 0.05
 spot_range = 6.0
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." index="2"]
-collision_mask = 12
+collision_mask = 28
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.374344)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.801163)
 shape = SubResource("BoxShape3D_otxyq")
-
-[connection signal="input_event" from="CharacterBody3D" to="." method="_on_character_body_3d_input_event"]

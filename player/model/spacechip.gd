@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 
 func dead():
 	var parent = get_parent_node_3d().get_parent_node_3d()
-	parent.dead()
+	parent.dead(true)
 	queue_free()
 
 func setCollision(value: bool):

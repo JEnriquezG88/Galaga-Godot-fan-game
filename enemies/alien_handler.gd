@@ -5,6 +5,12 @@ var firstTarget : Vector3 = Vector3(-13.0, 0.0, 37.0)
 var attack : bool
 var canAttack : bool = true
 @onready var attackSound: AudioStreamPlayer3D = $Attack
+@onready var captureSound: AudioStreamPlayer3D = $Capture
+var canReplaceSound : bool = true
+
+signal captured
+signal capturedUI
+signal addLife
 
 func initAliens() -> void:
 	for aliensRow in aliens:
@@ -41,7 +47,7 @@ func spawnLeftZone():
 				if alien.state == States.AlienStates.INITIALIZE: alien.state = States.AlienStates.MOVE_TO_TARGET
 
 func enemyAttack():
-	if canAttack:
+	if canAttack && !Level.gameOver:
 		var iterations : int = 0
 		for aliensRow in aliens:
 			for alien in aliensRow:
@@ -56,7 +62,9 @@ func enemyAttack():
 					attackSound.pitch_scale = randf_range(0.5,1.5)
 					attackSound.play()
 					alien.state = States.AlienStates.ATTACK
-		attackAlien = randi_range(0, iterations - 1)/10
+		#attackAlien = randi_range(0, iterations - 1)/10
+		attackAlien = randi_range(3,5)
+		
 		await get_tree().create_timer(attackAlien/2).timeout
 		enemyAttack()
 
@@ -69,6 +77,10 @@ func dead() -> void:
 	var parent = get_parent_node_3d()
 	parent.dead()
 
-
 func _on_player_dead_event() -> void:
 	canAttack = false
+
+func capturingSounds(value):
+	if canReplaceSound:
+		captureSound.stream = value
+		captureSound.play()

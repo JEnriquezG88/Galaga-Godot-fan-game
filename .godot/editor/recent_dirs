@@ -1,3 +1,6 @@
+res://enemies/effects
+res://
+res://enemies
 res://player/model
 res://globals/resources/icons
 res://globals/Menus
@@ -8,4 +11,3 @@ res://player/playerAssets/
 res://player
 res://enemies/diferent/Models
 res://enemies/diferent
-res://enemies

@@ -38,6 +38,7 @@ reflected_light_source = 2
 tonemap_mode = 2
 ssr_enabled = true
 ssao_enabled = true
+ssao_power = 0.247408
 ssil_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
@@ -138,6 +139,8 @@ script = ExtResource("15_xx6ug")
 stream = ExtResource("16_7ty4f")
 bus = &"Aliens"
 
+[node name="Capture" type="AudioStreamPlayer3D" parent="AlienFactory/AlienHandler"]
+
 [node name="AlienAudio" type="AudioStreamPlayer3D" parent="AlienFactory"]
 bus = &"Aliens"
 
@@ -157,6 +160,9 @@ curve = ExtResource("20_1hblb")
 [node name="Path3D2" type="Path3D" parent="."]
 curve = ExtResource("21_qkvci")
 
+[connection signal="addLife" from="AlienFactory/AlienHandler" to="Player" method="_on_alien_handler_add_life"]
+[connection signal="captured" from="AlienFactory/AlienHandler" to="Player" method="_on_alien_handler_captured"]
+[connection signal="capturedUI" from="AlienFactory/AlienHandler" to="Control" method="_on_alien_handler_captured_ui"]
 [connection signal="deadEvent" from="Player" to="AlienFactory/AlienHandler" method="_on_player_dead_event"]
 [connection signal="deadEvent" from="Player" to="Control" method="_on_player_dead_event"]
 [connection signal="startGame" from="Control" to="AlienFactory" method="_on_control_start_game"]

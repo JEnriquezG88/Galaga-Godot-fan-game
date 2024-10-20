@@ -1,5 +1,10 @@
-MeshInstance3D
 Node3D
+MeshInstance3D
+AudioStreamPlayer3D
+CollisionShape3D
+Area3D
+CharacterBody3D
+GPUParticles3D
 VBoxContainer
 MarginContainer
 GridContainer
@@ -7,8 +12,3 @@ Container
 Path3D
 HFlowContainer
 TextureRect
-Node2D
-CollisionShape3D
-CharacterBody3D
-AudioStreamPlayer2D
-HBoxContainer

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cptrfm0wqusom"]
+[gd_scene load_steps=14 format=3 uid="uid://cptrfm0wqusom"]
 
 [ext_resource type="Script" path="res://globals/Menus/menu.gd" id="1_5ngoy"]
 [ext_resource type="FontFile" uid="uid://dd0wi8lkhv1kl" path="res://globals/resources/fonts/PixelifySans-Regular.ttf" id="1_jmyq0"]
@@ -11,6 +11,11 @@
 font = ExtResource("1_jmyq0")
 font_size = 64
 font_color = Color(0, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ii05y"]
+font = ExtResource("1_jmyq0")
+font_size = 64
+font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_gs08o"]
 font = ExtResource("1_jmyq0")
@@ -61,6 +66,24 @@ text = "Press Start"
 label_settings = SubResource("LabelSettings_q8jt2")
 horizontal_alignment = 1
 script = ExtResource("3_grf3p")
+
+[node name="CapturedUI" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CapturedUI"]
+layout_mode = 2
+
+[node name="FighterCaptured" type="Label" parent="CapturedUI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "FIGHTER CAPTURED"
+label_settings = SubResource("LabelSettings_ii05y")
+horizontal_alignment = 1
 
 [node name="Score" type="MarginContainer" parent="."]
 layout_mode = 1

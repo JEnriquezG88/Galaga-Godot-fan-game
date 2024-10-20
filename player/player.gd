@@ -11,6 +11,7 @@ var states = States.PlayerStates.IDLE
 @onready var livesContainer: Node3D = $Lives
 var lives : int = 0
 @onready var player_target: MeshInstance3D = $PlayerTarget
+@onready var effects: AudioStreamPlayer3D = $Effects
 
 signal deadEvent
 
@@ -75,21 +76,29 @@ func shoot() -> void:
 			bullet.position.z = 1.9
 			add_child(bullet)
 
-func dead():
+func dead(spaceshipDestroy: bool):
+	if spaceshipDestroy:
+		var spaceship_destroy = preload("res://player/model/spaceship_destroy.tscn").instantiate()
+		spaceship_destroy.position = spacechip_controller.position
+		add_child(spaceship_destroy)
 	if lives > 0:
-		setLives(lives - 1)
+		setLives(-1)
 		await get_tree().create_timer(0.1).timeout
 		setSpaceships()
 	else:
+		Level.gameOver = true
 		deadEvent.emit()
 	pass
 
 func setLives(livesNumber : int):
+	if livesNumber == 1:
+		effects.stream = preload("res://player/effects/extraLife.mp3")
+		effects.play()
 	var livesCount = livesContainer.get_children()
 	if livesCount.size() > 0:
 		for live in livesCount:
 			livesContainer.remove_child(live)
-	lives = livesNumber
+	lives += livesNumber
 	var iterations : int = 0
 	for live in lives: 
 		var liveSpaceship = preload("res://player/model/lives.tscn").instantiate()
@@ -101,11 +110,18 @@ func setLives(livesNumber : int):
 func setSpaceships():
 	spacechip_controller.position.x = 0
 	var liveSpaceships = spacechip_controller.get_children()
-	print(liveSpaceships)
 	spacechips = liveSpaceships
 	addSpacechip()
 
 func _on_control_start_game() -> void:
-	setLives(3)
+	setLives(10)
 	setSpaceships()
 	#addSpacechip()
+
+
+func _on_alien_handler_captured() -> void:
+	dead(false)
+
+
+func _on_alien_handler_add_life() -> void:
+	setLives(1)

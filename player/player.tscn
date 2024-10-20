@@ -16,3 +16,5 @@ script = ExtResource("1_u1g0l")
 [node name="PlayerTarget" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource("BoxMesh_57b5h")
+
+[node name="Effects" type="AudioStreamPlayer3D" parent="."]
