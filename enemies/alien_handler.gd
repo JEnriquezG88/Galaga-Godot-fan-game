@@ -1,16 +1,21 @@
 extends Node3D
 
 var aliens : Array
+var totalAliens : int = 0
 var firstTarget : Vector3 = Vector3(-13.0, 0.0, 37.0)
 var attack : bool
 var canAttack : bool = true
 @onready var attackSound: AudioStreamPlayer3D = $Attack
 @onready var captureSound: AudioStreamPlayer3D = $Capture
 var canReplaceSound : bool = true
+var deadAliens : int = 0
+var playing : bool = false
 
 signal captured
 signal capturedUI
 signal addLife
+signal addSpaceship
+signal newLevel
 
 func initAliens() -> void:
 	for aliensRow in aliens:
@@ -24,6 +29,7 @@ func initAliens() -> void:
 				alien.initPath("res://enemies/generalPaths/down_left_init.tres")
 			alien.state = States.AlienStates.INITIALIZE
 		spawnAllRightLeft()
+	playing = true
 
 func spawnAllRightLeft():
 	spawnRightZone()
@@ -31,6 +37,7 @@ func spawnAllRightLeft():
 	spawnLeftZone()
 	await get_tree().create_timer(3.0).timeout
 	attack = true
+	canAttack = true
 
 func spawnRightZone():
 	for aliensRow in aliens:
@@ -62,8 +69,8 @@ func enemyAttack():
 					attackSound.pitch_scale = randf_range(0.5,1.5)
 					attackSound.play()
 					alien.state = States.AlienStates.ATTACK
-		#attackAlien = randi_range(0, iterations - 1)/10
-		attackAlien = randi_range(3,5)
+		attackAlien = randi_range(0, iterations - 1)/10
+		#attackAlien = randi_range(5,5)
 		
 		await get_tree().create_timer(attackAlien/2).timeout
 		enemyAttack()
@@ -72,6 +79,13 @@ func _process(delta: float) -> void:
 	if attack:
 		attack = false
 		enemyAttack()
+	if deadAliens == totalAliens && playing:
+		canAttack = false
+		Level.newLevel()
+		deadAliens = 0
+		newLevel.emit()
+	#print("DeadAliens: " + str(deadAliens))
+	#print("TotalAliens: " + str(totalAliens))
 
 func dead() -> void:
 	var parent = get_parent_node_3d()

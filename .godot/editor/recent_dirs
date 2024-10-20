@@ -1,3 +1,4 @@
+res://player
 res://enemies/effects
 res://
 res://enemies
@@ -8,6 +9,5 @@ res://globals/effects
 res://player/playerAssets
 res://globals/scripts
 res://player/playerAssets/
-res://player
 res://enemies/diferent/Models
 res://enemies/diferent

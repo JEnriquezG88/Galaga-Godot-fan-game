@@ -11,7 +11,7 @@ const CAPTURING = preload("res://enemies/effects/capturing.mp3")
 const CAPTURE = preload("res://enemies/effects/capture.mp3")
 
 func _process(delta: float) -> void:
-	if !addLife:
+	if !addSpaceship:
 		if hasSpaceship:
 			hasSpaceship = false
 			spaceship.queue_free()
@@ -74,14 +74,14 @@ func capture():
 	await get_tree().create_timer(2).timeout
 	capture_container.remove_child(capture)
 	#if !captureSpaceship:
-	if !addLife:
+	if !addSpaceship:
 		trackBeam.setScale(0.0)
 	endUniqueAttack = true
 
 func onCaptured(initialPosition: Vector3):
 	get_parent_node_3d().capturingSounds(CAPTURING)
 	get_parent_node_3d().canReplaceSound = false
-	addLife = true
+	addSpaceship = true
 	get_parent_node_3d().canAttack = false
 	spaceshipRotation = false
 	captureSpaceship = true
@@ -108,7 +108,6 @@ func capturing(delta):
 		state = States.AlienStates.CAPTURE
 		get_parent_node_3d().capturedUI.emit()
 		await get_tree().create_timer(4.33).timeout
-		get_parent_node_3d().capturedUI.emit()
 		get_parent_node_3d().canReplaceSound = true
 		get_parent_node_3d().captured.emit()
 		get_parent_node_3d().canAttack = true

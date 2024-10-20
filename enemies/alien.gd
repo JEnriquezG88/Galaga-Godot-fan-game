@@ -16,6 +16,7 @@ var lives : int = 5
 var attack : int = 0
 var endUniqueAttack : bool = false
 var addLife : bool = false
+var addSpaceship : bool = false
 var captureSpaceship : bool = false
 @onready var model: Node3D = $model
 @onready var player_direction: Node3D = $playerDirection
@@ -77,6 +78,7 @@ func basicAttack(delta: float):
 		endAttack()
 
 func endAttack():
+	attack = 0
 	state = States.AlienStates.INITIALIZE
 	await get_tree().create_timer(3).timeout
 	state = States.AlienStates.MOVE_TO_TARGET
@@ -97,6 +99,8 @@ func dead():
 		lives-=1
 	else:
 		state = States.AlienStates.TOTAL_DEAD
+		print("Total Dead")
+		get_parent_node_3d().deadAliens += 1
 
 func explosion():
 	var parent = get_parent_node_3d()
@@ -105,7 +109,7 @@ func explosion():
 	parent.add_child(explosionEffect)
 
 func respawn(delta):
-	position.z = lerp(position.z, targetPosition.z, 10 * delta)
+	position = lerp(position, targetPosition, 10 * delta)
 	if abs(targetPosition.z - position.z) < 0.01:
 		model.rotation.y = lerp_angle(model.rotation.y, 2 * PI, 10*delta)
 	if abs((2 * PI) - model.rotation.y) < 0.01:
@@ -118,6 +122,9 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 			if addLife:
 				addLife = false
 				get_parent_node_3d().addLife.emit()
+			if addSpaceship:
+				addSpaceship = false
+				get_parent_node_3d().addSpaceship.emit()
 			body.queue_free()
 		else:
 			if addLife:

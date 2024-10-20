@@ -1,8 +1,9 @@
 extends Node
 
-var level : int = 5
+var level : int = 1
 var targets : Array
 var score : int = 0
+var liveScore = 20000
 var hiScore : int = 3000
 var gameOver : bool = false
 func _init() -> void:

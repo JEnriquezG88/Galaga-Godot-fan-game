@@ -16,5 +16,6 @@ enum PlayerStates{
 	IDLE,
 	ON_NEW_SHIP,
 	PLAYING,
+	CAPTURE,
 	DEAD
 }

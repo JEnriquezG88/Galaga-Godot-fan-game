@@ -9,6 +9,9 @@ var rowIterations : int = 0
 var alien
 
 func generateAliens():
+	alien_handler.aliens = []
+	rowIterations = 0
+	iterations = 0
 	for target in Level.targets:
 		var aliensRow : Array
 		var internalIterations : int
@@ -21,6 +24,8 @@ func generateAliens():
 			iterations+=1
 		alien_handler.aliens.append(aliensRow)
 		rowIterations+=1
+	alien_handler.totalAliens = iterations
+	alien_handler.deadAliens = 0
 	alien_handler.initAliens()
 
 func alienSelector() -> void:
@@ -41,4 +46,8 @@ func dead() -> void:
 
 
 func _on_control_start_game() -> void:
+	generateAliens()
+
+
+func _on_control_new_level() -> void:
 	generateAliens()

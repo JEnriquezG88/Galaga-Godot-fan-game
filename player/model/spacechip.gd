@@ -4,13 +4,14 @@ var rotationVelocity : float = 10.0
 var rotationTarget : float = 1
 var canRotate : bool = false
 @onready var spacechip: MeshInstance3D = $Spacechip
-@onready var collision_shape_3d: CollisionShape3D = $CharacterBody3D/CollisionShape3D
+var isCollider : bool = false
+var collider : CharacterBody3D
 
 func _ready() -> void:
-	setCollision(true)
+	setCollision(false)
 
 func _process(delta: float) -> void:
-	if canRotate:
+	if isCollider:
 		spacechip.rotation.z = lerp_angle(spacechip.rotation.z, rotationTarget * GlobalInput.leftAxis.x, rotationVelocity * delta)
 	else:
 		spacechip.rotation.z = lerp_angle(spacechip.rotation.z, 0.0, rotationVelocity * delta)
@@ -22,4 +23,10 @@ func dead():
 	queue_free()
 
 func setCollision(value: bool):
-	collision_shape_3d.disabled = value
+	if value != isCollider:
+		isCollider = value
+		if isCollider:
+			collider = preload("res://player/PlayerCollision.tscn").instantiate()
+			add_child(collider)
+		else:
+			remove_child(collider)

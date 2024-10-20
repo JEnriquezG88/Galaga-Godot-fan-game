@@ -39,30 +39,38 @@ func secondDist() -> Array:
 	return dist
 func thirdDist() -> Array:
 	var dist : Array = []
-	dist.append([0, 0, 0, 1, 1, 1, 1, 0, 0, 0])
-	dist.append([0, 0, 0, 1, 1, 1, 1, 0, 0, 0])
-	dist.append([0, 0, 0, 1, 1, 1, 1, 0, 0, 0])
-	dist.append([0, 0, 0, 1, 1, 1, 1, 0, 0, 0])
-	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+	dist.append([1, 0, 0, 1, 1, 1, 1, 0, 0, 1])
+	dist.append([0, 1, 0, 1, 1, 1, 1, 0, 1, 0])
+	dist.append([0, 0, 1, 1, 1, 1, 1, 1, 0, 0])
+	dist.append([0, 1, 0, 1, 1, 1, 1, 0, 1, 0])
+	dist.append([1, 0, 0, 0, 0, 0, 0, 0, 0, 1])
 	return dist
 func fourthDist() -> Array:
 	var dist : Array = []
-	for i in range(5):
-		dist.append([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+	dist.append([1, 0, 1, 0, 1, 0, 1, 0, 1, 0])
+	dist.append([0, 1, 0, 1, 0, 1, 0, 1, 0, 1])
+	dist.append([1, 0, 1, 0, 1, 0, 1, 0, 1, 0])
+	dist.append([0, 1, 0, 1, 0, 1, 0, 1, 0, 1])
+	dist.append([1, 0, 1, 0, 1, 0, 1, 0, 1, 0])
 	return dist
 func fifthDist() -> Array:
 	var dist : Array = []
-	dist.append([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
-	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+	dist.append([0, 1, 0, 1, 0, 1, 0, 1, 0, 0])
+	dist.append([1, 0, 1, 1, 0, 1, 1, 0, 1, 1])
+	dist.append([1, 1, 0, 1, 1, 0, 1, 1, 0, 0])
+	dist.append([1, 1, 1, 1, 0, 1, 1, 1, 1, 1])
+	dist.append([1, 1, 1, 0, 1, 0, 1, 1, 1, 1])
 	return dist
 func HHDist() -> Array:
 	var dist : Array = []
-	dist.append([0, 0, 1, 0, 1, 1, 1, 0, 0, 0])
-	dist.append([0, 0, 1, 0, 1, 0, 0, 0, 0, 0])
-	dist.append([0, 0, 1, 1, 1, 1, 1, 0, 0, 0])
-	dist.append([0, 0, 0, 0, 1, 0, 1, 0, 0, 0])
-	dist.append([0, 0, 1, 1, 1, 0, 1, 0, 0, 0])
+	#dist.append([0, 0, 1, 0, 1, 1, 1, 0, 0, 0])
+	#dist.append([0, 0, 1, 0, 1, 0, 0, 0, 0, 0])
+	#dist.append([0, 0, 1, 1, 1, 1, 1, 0, 0, 0])
+	#dist.append([0, 0, 0, 0, 1, 0, 1, 0, 0, 0])
+	#dist.append([0, 0, 1, 1, 1, 0, 1, 0, 0, 0])
+	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+	dist.append([1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 	return dist

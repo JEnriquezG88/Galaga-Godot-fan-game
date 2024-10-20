@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0ykd7wsllgma"]
+[gd_scene load_steps=5 format=3 uid="uid://d0ykd7wsllgma"]
 
 [ext_resource type="Script" path="res://enemies/diferent/yellow_alien.gd" id="1_0w1mu"]
 [ext_resource type="PackedScene" uid="uid://gldykfjgbl02" path="res://enemies/diferent/Models/yellow_alien.tscn" id="2_bm3dl"]
+[ext_resource type="PackedScene" uid="uid://n38qtsvbecl7" path="res://Arrow.tscn" id="3_nfqv5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mm6bl"]
 size = Vector3(1.635, 1, 1.18)
@@ -24,6 +25,9 @@ spot_range = 3.20751
 spot_angle = 25.6193
 
 [node name="playerDirection" type="Node3D" parent="."]
+
+[node name="Nothing" parent="playerDirection" instance=ExtResource("3_nfqv5")]
+visible = false
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 8

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dji51ju3ulcec"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qyolc"]
+size = Vector3(2, 1, 1.85364)
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+collision_mask = 28
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.801163)
+shape = SubResource("BoxShape3D_qyolc")

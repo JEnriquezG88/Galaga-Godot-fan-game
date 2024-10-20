@@ -1,40 +1,40 @@
 [gd_scene load_steps=14 format=3 uid="uid://cptrfm0wqusom"]
 
 [ext_resource type="Script" path="res://globals/Menus/menu.gd" id="1_5ngoy"]
-[ext_resource type="FontFile" uid="uid://dd0wi8lkhv1kl" path="res://globals/resources/fonts/PixelifySans-Regular.ttf" id="1_jmyq0"]
 [ext_resource type="Script" path="res://globals/Menus/press_start.gd" id="3_5hxox"]
 [ext_resource type="Script" path="res://globals/Menus/blink.gd" id="3_grf3p"]
 [ext_resource type="AudioStream" uid="uid://clxaqai0gjho1" path="res://globals/effects/StartGame.mp3" id="4_egiji"]
+[ext_resource type="FontFile" uid="uid://ruf2s0df3ysd" path="res://globals/resources/fonts/Jersey25-Regular.ttf" id="4_tgje6"]
 [ext_resource type="Script" path="res://globals/Menus/hi_score.gd" id="5_yj1v2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_q8jt2"]
-font = ExtResource("1_jmyq0")
+font = ExtResource("4_tgje6")
 font_size = 64
 font_color = Color(0, 1, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ii05y"]
-font = ExtResource("1_jmyq0")
+font = ExtResource("4_tgje6")
 font_size = 64
 font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_gs08o"]
-font = ExtResource("1_jmyq0")
+font = ExtResource("4_tgje6")
 font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0763p"]
-font = ExtResource("1_jmyq0")
+font = ExtResource("4_tgje6")
 
 [sub_resource type="LabelSettings" id="LabelSettings_kq5m8"]
-font = ExtResource("1_jmyq0")
+font = ExtResource("4_tgje6")
 font_size = 64
 
 [sub_resource type="LabelSettings" id="LabelSettings_dosci"]
-font = ExtResource("1_jmyq0")
+font = ExtResource("4_tgje6")
 font_size = 64
 font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_865mm"]
-font = ExtResource("1_jmyq0")
+font = ExtResource("4_tgje6")
 font_size = 32
 
 [node name="Control" type="Control"]
@@ -81,7 +81,63 @@ layout_mode = 2
 [node name="FighterCaptured" type="Label" parent="CapturedUI/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+text = "FIGHTER CAPTURED
+-100"
+label_settings = SubResource("LabelSettings_ii05y")
+horizontal_alignment = 1
+
+[node name="RecoveredUI" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RecoveredUI"]
+layout_mode = 2
+
+[node name="FighterRecovered" type="Label" parent="RecoveredUI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "FIGHTER RECOVERED
++150"
+label_settings = SubResource("LabelSettings_ii05y")
+horizontal_alignment = 1
+
+[node name="OnNewLevel" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OnNewLevel"]
+layout_mode = 2
+
+[node name="LevelText" type="Label" parent="OnNewLevel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 text = "FIGHTER CAPTURED"
+label_settings = SubResource("LabelSettings_ii05y")
+horizontal_alignment = 1
+
+[node name="NewLive" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewLive"]
+layout_mode = 2
+
+[node name="Extralife" type="Label" parent="NewLive/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "EXTRA LIFE"
 label_settings = SubResource("LabelSettings_ii05y")
 horizontal_alignment = 1
 

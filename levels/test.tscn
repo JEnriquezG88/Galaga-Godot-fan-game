@@ -161,9 +161,14 @@ curve = ExtResource("20_1hblb")
 curve = ExtResource("21_qkvci")
 
 [connection signal="addLife" from="AlienFactory/AlienHandler" to="Player" method="_on_alien_handler_add_life"]
+[connection signal="addSpaceship" from="AlienFactory/AlienHandler" to="Player" method="_on_alien_handler_add_spaceship"]
+[connection signal="addSpaceship" from="AlienFactory/AlienHandler" to="Control" method="_on_alien_handler_add_spaceship"]
 [connection signal="captured" from="AlienFactory/AlienHandler" to="Player" method="_on_alien_handler_captured"]
 [connection signal="capturedUI" from="AlienFactory/AlienHandler" to="Control" method="_on_alien_handler_captured_ui"]
+[connection signal="newLevel" from="AlienFactory/AlienHandler" to="Control" method="_on_alien_handler_new_level"]
+[connection signal="addLive" from="Player" to="Control" method="_on_player_add_live"]
 [connection signal="deadEvent" from="Player" to="AlienFactory/AlienHandler" method="_on_player_dead_event"]
 [connection signal="deadEvent" from="Player" to="Control" method="_on_player_dead_event"]
+[connection signal="newLevel" from="Control" to="AlienFactory" method="_on_control_new_level"]
 [connection signal="startGame" from="Control" to="AlienFactory" method="_on_control_start_game"]
 [connection signal="startGame" from="Control" to="Player" method="_on_control_start_game"]
