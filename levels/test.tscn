@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d3inl6td7tyr2"]
+[gd_scene load_steps=34 format=3 uid="uid://d3inl6td7tyr2"]
 
 [ext_resource type="Resource" uid="uid://cslvcweyejh3c" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_movement_component.tres" id="1_v5bj1"]
 [ext_resource type="Resource" uid="uid://iru8ynu04i00" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_rotation_component.tres" id="2_pkop6"]
@@ -19,8 +19,8 @@
 [ext_resource type="AudioStream" uid="uid://rs5ggger345j" path="res://globals/effects/Explosion.mp3" id="16_27gks"]
 [ext_resource type="PackedScene" uid="uid://cq2iq2mq5dj2p" path="res://player/player.tscn" id="16_xvar1"]
 [ext_resource type="PackedScene" uid="uid://cptrfm0wqusom" path="res://globals/Menus/start.tscn" id="19_7ccx1"]
-[ext_resource type="Curve3D" uid="uid://c4t4e7utbip44" path="res://enemies/generalPaths/down_left_init.tres" id="20_1hblb"]
-[ext_resource type="Curve3D" uid="uid://8sl7wb6wdto8" path="res://enemies/generalPaths/down_right_init.tres" id="21_qkvci"]
+[ext_resource type="Shader" uid="uid://cauac3i73bkpr" path="res://levels/stars.tres" id="20_4xt17"]
+[ext_resource type="Shader" uid="uid://bcish4b36by0p" path="res://levels/stars2.tres" id="21_0yioa"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sabjh"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -91,6 +91,26 @@ dof_blur_far_distance = 52.77
 [sub_resource type="BoxMesh" id="BoxMesh_srrdc"]
 size = Vector3(45.21, 1, 5)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7snr"]
+render_priority = 0
+shader = ExtResource("20_4xt17")
+shader_parameter/Speed = Vector2(-0.01, -0.01)
+shader_parameter/NoiseSpeed = Vector2(0.1, 0.08)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_phf73"]
+material = SubResource("ShaderMaterial_k7snr")
+size = Vector2(50, 50)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qelmf"]
+render_priority = 0
+shader = ExtResource("21_0yioa")
+shader_parameter/Speed = Vector2(0, -0.05)
+shader_parameter/NoiseSpeed = Vector2(0.2, 0.1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mgasd"]
+material = SubResource("ShaderMaterial_qelmf")
+size = Vector2(50, 50)
+
 [node name="Test" type="Node3D"]
 
 [node name="Enviroment" type="Node3D" parent="."]
@@ -153,12 +173,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
 [node name="Control" parent="." instance=ExtResource("19_7ccx1")]
 
-[node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
-curve = ExtResource("20_1hblb")
+[node name="Stars" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+mesh = SubResource("PlaneMesh_phf73")
 
-[node name="Path3D2" type="Path3D" parent="."]
-curve = ExtResource("21_qkvci")
+[node name="Stars2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 20)
+mesh = SubResource("PlaneMesh_mgasd")
 
 [connection signal="addLife" from="AlienFactory/AlienHandler" to="Player" method="_on_alien_handler_add_life"]
 [connection signal="addSpaceship" from="AlienFactory/AlienHandler" to="Player" method="_on_alien_handler_add_spaceship"]

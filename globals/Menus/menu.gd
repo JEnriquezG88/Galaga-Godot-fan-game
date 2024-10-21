@@ -17,6 +17,8 @@ signal newLevel
 @onready var fighter_recovered: Label = $RecoveredUI/VBoxContainer/FighterRecovered
 @onready var new_live: CenterContainer = $NewLive
 @onready var extralife: Label = $NewLive/VBoxContainer/Extralife
+@onready var final_score: Label = $GameOver/MarginContainer/HBoxContainer/FinalScore
+@onready var game_over: CenterContainer = $GameOver
 
 var capturedUI : bool = false
 
@@ -30,6 +32,7 @@ func _ready() -> void:
 	on_new_level.visible = false
 	recovered_ui.visible = false
 	new_live.visible = false
+	game_over.visible = false
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("start") && !gameStart:
@@ -38,12 +41,14 @@ func _input(event: InputEvent) -> void:
 		score.visible = true
 		grid_container.visible = false
 		grid_container_2.visible = false
-		sound.play()
-		startGame.emit()
+		#startGame.emit()
+		_on_alien_handler_new_level()
 
 func _on_player_dead_event() -> void:
-	centerText.text = "Game Over"
-	press_start.visible = true
+	sound.stream = preload("res://globals/effects/GameOver.mp3")
+	sound.play()
+	final_score.text = str(Level.score)
+	game_over.visible = true
 	score.visible = false
 
 
@@ -61,19 +66,31 @@ func _on_alien_handler_captured_ui() -> void:
 
 
 func _on_alien_handler_new_level() -> void:
-	print("NEW LEVEL")
 	on_new_level.visible = true
 	level_text.text = "Level "+str(Level.level)
 	for i in range(20):
+		if i == 1:
+			sound.stream = preload("res://globals/effects/NewLevel.mp3")
+			sound.play()
+		if i == 10:
+			if Level.level == 1:
+				sound.stream = preload("res://globals/effects/StartGame.mp3")
+				sound.play()
+				startGame.emit()
+			else:
+				newLevel.emit()
 		var value : bool
 		if i % 2:
 			value = false
 		else:
 			value = true
-		level_text.visible = value
-		await get_tree().create_timer(0.215).timeout
+		if i < 10:
+			level_text.visible = value
+		else:
+			level_text.visible = false
+		await get_tree().create_timer(0.2).timeout
 	on_new_level.visible = false
-	newLevel.emit()
+	#newLevel.emit()
 
 
 func _on_alien_handler_add_spaceship() -> void:

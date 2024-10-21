@@ -8,6 +8,9 @@ var hiScore : int = 3000
 var gameOver : bool = false
 func _init() -> void:
 	generateTargets()
+		
+func _process(delta: float) -> void:
+	score = clamp(score, 0, 1000000000000)
 
 func generateTargets() -> void:
 	var distribution: Array = DistributionGenerator.generate(level)

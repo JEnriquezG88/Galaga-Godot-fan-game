@@ -84,8 +84,6 @@ func _process(delta: float) -> void:
 		Level.newLevel()
 		deadAliens = 0
 		newLevel.emit()
-	#print("DeadAliens: " + str(deadAliens))
-	#print("TotalAliens: " + str(totalAliens))
 
 func dead() -> void:
 	var parent = get_parent_node_3d()

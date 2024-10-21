@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgdddnmfrt6fr"]
+[gd_scene load_steps=4 format=3 uid="uid://bgdddnmfrt6fr"]
 
 [ext_resource type="PackedScene" uid="uid://cqne3iv3rdkdj" path="res://player/playerAssets/spacechip.blend" id="1_e6g4y"]
 [ext_resource type="Script" path="res://player/model/spacechip.gd" id="2_bdyf0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n484r"]
+size = Vector3(2, 1, 1.85364)
 
 [node name="spacechip" instance=ExtResource("1_e6g4y")]
 script = ExtResource("2_bdyf0")
@@ -15,3 +18,13 @@ light_energy = 3.0
 shadow_enabled = true
 shadow_blur = 0.05
 spot_range = 6.0
+
+[node name="Area3D" type="Area3D" parent="." index="2"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.801163)
+shape = SubResource("BoxShape3D_n484r")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

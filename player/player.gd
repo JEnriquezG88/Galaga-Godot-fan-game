@@ -75,19 +75,20 @@ func getSpaceships() -> void:
 
 func spacechipPosition(delta: float) -> void:
 	getSpaceships()
-	var currentSpaceship = spacechips[spacechips.size() - 1]
-	currentSpaceship.position.z = lerp(currentSpaceship.position.z, 0.0, 10 * delta)
-	if spacechip_controller.position.x < 20:
-		spacechip_controller.position.x = lerp(spacechip_controller.position.x, newPositionForNewShip, 10 * delta)
-	if spacechip_controller.position.x >= 20:
-		spacechip_controller.position.x = 20
-	if abs(currentSpaceship.position.z) <= 0.1:
-		movement = spacechip_controller.position.x
-		currentSpaceship.position.z = 0.0
-		
-		setSpaceshipCollisions(true)
-		spaceshipRotation(true)
-		states = States.PlayerStates.PLAYING
+	if spacechips.size() > 0:
+		var currentSpaceship = spacechips[spacechips.size() - 1]
+		currentSpaceship.position.z = lerp(currentSpaceship.position.z, 0.0, 10 * delta)
+		if spacechip_controller.position.x < 20:
+			spacechip_controller.position.x = lerp(spacechip_controller.position.x, newPositionForNewShip, 10 * delta)
+		if spacechip_controller.position.x >= 20:
+			spacechip_controller.position.x = 20
+		if abs(currentSpaceship.position.z) <= 0.1:
+			movement = spacechip_controller.position.x
+			currentSpaceship.position.z = 0.0
+			
+			setSpaceshipCollisions(true)
+			spaceshipRotation(true)
+			states = States.PlayerStates.PLAYING
 
 func spacechipMovement(delta: float) -> void:
 	movement -= GlobalInput.leftAxis.x * movementVelocity * delta
@@ -116,20 +117,19 @@ func shoot() -> void:
 func dead(spaceshipDestroy: bool):
 	if spaceshipDestroy:
 		var spaceship_destroy = preload("res://player/model/spaceship_destroy.tscn").instantiate()
-		spaceship_destroy.position = spacechip_controller.position
-		add_child(spaceship_destroy)
-		getSpaceships()
-	if lives > 0:
-		await get_tree().create_timer(0.1).timeout
-		if spacechips.size() == 0:
+		spaceship_destroy.position = Vector3(spacechip_controller.position.x,spacechip_controller.position.y,spacechip_controller.position.z + 0.7)
+		get_parent_node_3d().add_child(spaceship_destroy)
+	await get_tree().create_timer(0.1).timeout
+	getSpaceships()
+	if spacechips.size() == 0:
+		if lives > 0:
 			setLives(-1)
 			setSpaceships()
 		else:
-			ChangeControllerAndSpaceshipsPosition()
+			Level.gameOver = true
+			deadEvent.emit()
 	else:
-		Level.gameOver = true
-		deadEvent.emit()
-	pass
+		ChangeControllerAndSpaceshipsPosition()
 
 func ChangeControllerAndSpaceshipsPosition() -> void:
 	getSpaceships()

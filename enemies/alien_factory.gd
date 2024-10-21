@@ -9,6 +9,10 @@ var rowIterations : int = 0
 var alien
 
 func generateAliens():
+	#if alien_handler.aliens.size() > 0:
+		#for aliensRow in alien_handler.aliens:
+			#for alien in aliensRow:
+				#alien_handler.remove_child(alien)
 	alien_handler.aliens = []
 	rowIterations = 0
 	iterations = 0

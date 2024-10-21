@@ -8,6 +8,8 @@ func _process(delta: float) -> void:
 			initialize()
 		States.AlienStates.MOVE_TO_TARGET:
 			moveToTarget(delta)
+		States.AlienStates.ALIVE:
+			shot = false
 		States.AlienStates.ATTACK:
 			attackSelectorFunction(delta)
 		States.AlienStates.RESPAWN:

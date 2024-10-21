@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cptrfm0wqusom"]
+[gd_scene load_steps=15 format=3 uid="uid://cptrfm0wqusom"]
 
 [ext_resource type="Script" path="res://globals/Menus/menu.gd" id="1_5ngoy"]
 [ext_resource type="Script" path="res://globals/Menus/press_start.gd" id="3_5hxox"]
 [ext_resource type="Script" path="res://globals/Menus/blink.gd" id="3_grf3p"]
-[ext_resource type="AudioStream" uid="uid://clxaqai0gjho1" path="res://globals/effects/StartGame.mp3" id="4_egiji"]
 [ext_resource type="FontFile" uid="uid://ruf2s0df3ysd" path="res://globals/resources/fonts/Jersey25-Regular.ttf" id="4_tgje6"]
 [ext_resource type="Script" path="res://globals/Menus/hi_score.gd" id="5_yj1v2"]
 
@@ -11,6 +10,15 @@
 font = ExtResource("4_tgje6")
 font_size = 64
 font_color = Color(0, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_miuge"]
+font = ExtResource("4_tgje6")
+font_size = 32
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ks2ib"]
+font = ExtResource("4_tgje6")
+font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_ii05y"]
 font = ExtResource("4_tgje6")
@@ -49,6 +57,7 @@ size_flags_vertical = 4
 script = ExtResource("1_5ngoy")
 
 [node name="PressStart" type="CenterContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,7 +76,46 @@ label_settings = SubResource("LabelSettings_q8jt2")
 horizontal_alignment = 1
 script = ExtResource("3_grf3p")
 
+[node name="GameOver" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
+layout_mode = 2
+
+[node name="GameOver" type="Label" parent="GameOver/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Game Over"
+label_settings = SubResource("LabelSettings_q8jt2")
+horizontal_alignment = 1
+script = ExtResource("3_grf3p")
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOver"]
+layout_mode = 2
+theme_override_constants/margin_top = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOver/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="YourScore" type="Label" parent="GameOver/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Your score: 
+"
+label_settings = SubResource("LabelSettings_miuge")
+
+[node name="FinalScore" type="Label" parent="GameOver/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "00"
+label_settings = SubResource("LabelSettings_ks2ib")
+
 [node name="CapturedUI" type="CenterContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -87,6 +135,7 @@ label_settings = SubResource("LabelSettings_ii05y")
 horizontal_alignment = 1
 
 [node name="RecoveredUI" type="CenterContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -106,6 +155,7 @@ label_settings = SubResource("LabelSettings_ii05y")
 horizontal_alignment = 1
 
 [node name="OnNewLevel" type="CenterContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -124,6 +174,7 @@ label_settings = SubResource("LabelSettings_ii05y")
 horizontal_alignment = 1
 
 [node name="NewLive" type="CenterContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -142,6 +193,7 @@ label_settings = SubResource("LabelSettings_ii05y")
 horizontal_alignment = 1
 
 [node name="Score" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
 offset_right = 94.0
 offset_bottom = 44.0
@@ -182,7 +234,6 @@ label_settings = SubResource("LabelSettings_0763p")
 script = ExtResource("5_yj1v2")
 
 [node name="sound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_egiji")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 1

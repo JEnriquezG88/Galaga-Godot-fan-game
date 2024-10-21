@@ -9,6 +9,12 @@ var trackBeam
 const ALIEN_TRACTOR = preload("res://enemies/effects/AlienTractor.mp3")
 const CAPTURING = preload("res://enemies/effects/capturing.mp3")
 const CAPTURE = preload("res://enemies/effects/capture.mp3")
+enum CaptureSteps{
+	TURNS,
+	POSITION,
+	END
+}
+var captureSteps = CaptureSteps.TURNS
 
 func _process(delta: float) -> void:
 	if !addSpaceship:
@@ -23,6 +29,7 @@ func _process(delta: float) -> void:
 		States.AlienStates.ALIVE:
 			attack = 0
 			endUniqueAttack = false
+			shot = false
 		States.AlienStates.ATTACK:
 			attackSelectorFunction(delta)
 		States.AlienStates.CAPTURE:
@@ -93,25 +100,58 @@ func onCaptured(initialPosition: Vector3):
 	add_child(redSpaceship)
 	state = States.AlienStates.CAPTURING
 
+#func capturing(delta):
+	#if spaceship.rotation.y < 20 * PI:
+		#spaceship.rotation.y += 20 * delta
+	#elif spaceship.position.z < 2.0:
+		#trackBeam.setScale(0.0)
+		#spaceship.position.z = lerp(spaceship.position.z, 2.1,10 * delta)
+	#else:
+		#get_parent_node_3d().canReplaceSound = true
+		#get_parent_node_3d().capturingSounds(CAPTURE)
+		#get_parent_node_3d().canReplaceSound = false
+		#spaceshipRotation = true;
+		#endUniqueAttack = true
+		#state = States.AlienStates.CAPTURE
+		#get_parent_node_3d().capturedUI.emit()
+		#await get_tree().create_timer(4.33).timeout
+		#get_parent_node_3d().canReplaceSound = true
+		#get_parent_node_3d().captured.emit()
+		#get_parent_node_3d().canAttack = true
+		#get_parent_node_3d().enemyAttack()
+	#
+
 func capturing(delta):
-	if spaceship.rotation.y < 20 * PI:
-		spaceship.rotation.y += 20 * delta
+	if spaceship.rotation.y < 20 * PI && captureSteps == CaptureSteps.TURNS:
+		if captureSteps == CaptureSteps.TURNS:
+			captureSteps = CaptureSteps.TURNS
 	elif spaceship.position.z < 2.0:
-		trackBeam.setScale(0.0)
-		spaceship.position.z = lerp(spaceship.position.z, 2.1,10 * delta)
+		if captureSteps == CaptureSteps.TURNS:
+			captureSteps = CaptureSteps.POSITION
 	else:
-		get_parent_node_3d().canReplaceSound = true
-		get_parent_node_3d().capturingSounds(CAPTURE)
-		get_parent_node_3d().canReplaceSound = false
-		spaceshipRotation = true;
-		endUniqueAttack = true
-		state = States.AlienStates.CAPTURE
-		get_parent_node_3d().capturedUI.emit()
-		await get_tree().create_timer(4.33).timeout
-		get_parent_node_3d().canReplaceSound = true
-		get_parent_node_3d().captured.emit()
-		get_parent_node_3d().canAttack = true
-		get_parent_node_3d().enemyAttack()
+		if captureSteps == CaptureSteps.POSITION:
+			captureSteps = CaptureSteps.END
+
+	match captureSteps:
+		CaptureSteps.TURNS:
+			spaceship.rotation.y += 20 * delta
+		CaptureSteps.POSITION:
+			spaceship.rotation.y = 0.0
+			trackBeam.setScale(0.0)
+			spaceship.position.z = lerp(spaceship.position.z, 2.1,10 * delta)
+		CaptureSteps.END:
+			get_parent_node_3d().canReplaceSound = true
+			get_parent_node_3d().capturingSounds(CAPTURE)
+			get_parent_node_3d().canReplaceSound = false
+			spaceshipRotation = true;
+			endUniqueAttack = true
+			state = States.AlienStates.CAPTURE
+			get_parent_node_3d().capturedUI.emit()
+			await get_tree().create_timer(4.33).timeout
+			get_parent_node_3d().canReplaceSound = true
+			get_parent_node_3d().captured.emit()
+			get_parent_node_3d().canAttack = true
+			get_parent_node_3d().enemyAttack()
 
 func returnToTarget(delta):
 	if position.z < 100:

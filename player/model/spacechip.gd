@@ -7,6 +7,7 @@ var canRotate : bool = false
 var isCollider : bool = false
 var collider : CharacterBody3D
 
+
 func _ready() -> void:
 	setCollision(false)
 
@@ -30,3 +31,9 @@ func setCollision(value: bool):
 			add_child(collider)
 		else:
 			remove_child(collider)
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body.collision_layer == 4:
+		body.queue_free()
+		dead()

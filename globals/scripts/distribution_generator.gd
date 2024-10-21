@@ -47,27 +47,22 @@ func thirdDist() -> Array:
 	return dist
 func fourthDist() -> Array:
 	var dist : Array = []
-	dist.append([1, 0, 1, 0, 1, 0, 1, 0, 1, 0])
-	dist.append([0, 1, 0, 1, 0, 1, 0, 1, 0, 1])
-	dist.append([1, 0, 1, 0, 1, 0, 1, 0, 1, 0])
-	dist.append([0, 1, 0, 1, 0, 1, 0, 1, 0, 1])
-	dist.append([1, 0, 1, 0, 1, 0, 1, 0, 1, 0])
+	for i in range(5):
+		if i % 2:
+			dist.append([0, 1, 0, 1, 0, 1, 0, 1, 0, 1])
+		else:
+			dist.append([1, 0, 1, 0, 1, 0, 1, 0, 1, 0])
 	return dist
 func fifthDist() -> Array:
 	var dist : Array = []
-	dist.append([0, 1, 0, 1, 0, 1, 0, 1, 0, 0])
-	dist.append([1, 0, 1, 1, 0, 1, 1, 0, 1, 1])
-	dist.append([1, 1, 0, 1, 1, 0, 1, 1, 0, 0])
+	dist.append([0, 1, 1, 1, 0, 0, 1, 1, 1, 0])
+	dist.append([1, 0, 1, 1, 0, 0, 1, 1, 0, 1])
+	dist.append([1, 1, 0, 0, 1, 1, 0, 0, 1, 1])
 	dist.append([1, 1, 1, 1, 0, 1, 1, 1, 1, 1])
 	dist.append([1, 1, 1, 0, 1, 0, 1, 1, 1, 1])
 	return dist
 func HHDist() -> Array:
 	var dist : Array = []
-	#dist.append([0, 0, 1, 0, 1, 1, 1, 0, 0, 0])
-	#dist.append([0, 0, 1, 0, 1, 0, 0, 0, 0, 0])
-	#dist.append([0, 0, 1, 1, 1, 1, 1, 0, 0, 0])
-	#dist.append([0, 0, 0, 0, 1, 0, 1, 0, 0, 0])
-	#dist.append([0, 0, 1, 1, 1, 0, 1, 0, 0, 0])
 	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 	dist.append([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])

@@ -22,6 +22,7 @@ var captureSpaceship : bool = false
 @onready var player_direction: Node3D = $playerDirection
 @onready var area_3d: Area3D = $Area3D
 @onready var collision_shape_3d: CollisionShape3D = $Area3D/CollisionShape3D
+var shot : bool = false
 
 func _ready() -> void:
 	visible = false
@@ -71,11 +72,26 @@ func basicAttack(delta: float):
 	model.rotation.y = lerp_angle(model.rotation.y, player_direction.rotation.y + PI, rotationVelocity * delta)
 	var direction = model.basis.z.normalized()
 	position += direction * 40 * delta
+	
+	if position.z < 20 && position.z > 19.5:
+		if !shot:
+			shot = true
+			var shotRand = randi_range(1,10)
+			if shotRand % 2:
+				shoot()
+
 	if position.z < -10:
 		visible = false
 		pathFollow.progress_ratio = 0
 		state = States.AlienStates.IDLE
 		endAttack()
+
+func shoot():
+	var bullet = preload("res://enemies/bullet.tscn").instantiate()
+	bullet.position = position
+	bullet.rotation.y = player_direction.rotation.y + PI
+	var parent = get_parent_node_3d().get_parent_node_3d()
+	parent.add_child(bullet)
 
 func endAttack():
 	attack = 0
@@ -99,7 +115,6 @@ func dead():
 		lives-=1
 	else:
 		state = States.AlienStates.TOTAL_DEAD
-		print("Total Dead")
 		get_parent_node_3d().deadAliens += 1
 
 func explosion():
