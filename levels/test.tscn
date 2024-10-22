@@ -1,5 +1,6 @@
-[gd_scene load_steps=34 format=3 uid="uid://d3inl6td7tyr2"]
+[gd_scene load_steps=35 format=3 uid="uid://d3inl6td7tyr2"]
 
+[ext_resource type="Script" path="res://levels/LevelActions.gd" id="1_3exdk"]
 [ext_resource type="Resource" uid="uid://cslvcweyejh3c" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_movement_component.tres" id="1_v5bj1"]
 [ext_resource type="Resource" uid="uid://iru8ynu04i00" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_rotation_component.tres" id="2_pkop6"]
 [ext_resource type="Resource" uid="uid://rp3mpjmisoyh" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_object_movement_component.tres" id="3_vkebs"]
@@ -85,12 +86,6 @@ framerate_independent = true
 uncapped_independence = false
 target_constant_framerate = 30.0
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_owdss"]
-dof_blur_far_distance = 52.77
-
-[sub_resource type="BoxMesh" id="BoxMesh_srrdc"]
-size = Vector3(45.21, 1, 5)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k7snr"]
 render_priority = 0
 shader = ExtResource("20_4xt17")
@@ -111,7 +106,14 @@ shader_parameter/NoiseSpeed = Vector2(0.2, 0.1)
 material = SubResource("ShaderMaterial_qelmf")
 size = Vector2(50, 50)
 
-[node name="Test" type="Node3D"]
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_owdss"]
+dof_blur_far_distance = 52.77
+
+[sub_resource type="BoxMesh" id="BoxMesh_srrdc"]
+size = Vector3(45.21, 1, 5)
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_3exdk")
 
 [node name="Enviroment" type="Node3D" parent="."]
 
@@ -124,6 +126,16 @@ directional_shadow_max_distance = 8192.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroment"]
 environment = SubResource("Environment_eminp")
 compositor = SubResource("Compositor_a15a1")
+
+[node name="Stars" type="MeshInstance3D" parent="Enviroment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+mesh = SubResource("PlaneMesh_phf73")
+skeleton = NodePath("../..")
+
+[node name="Stars2" type="MeshInstance3D" parent="Enviroment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 20)
+mesh = SubResource("PlaneMesh_mgasd")
+skeleton = NodePath("../..")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2.72665, 20)
@@ -172,14 +184,7 @@ bus = &"GeneralEffects"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
 [node name="Control" parent="." instance=ExtResource("19_7ccx1")]
-
-[node name="Stars" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
-mesh = SubResource("PlaneMesh_phf73")
-
-[node name="Stars2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 20)
-mesh = SubResource("PlaneMesh_mgasd")
+process_mode = 3
 
 [connection signal="addLife" from="AlienFactory/AlienHandler" to="Player" method="_on_alien_handler_add_life"]
 [connection signal="addSpaceship" from="AlienFactory/AlienHandler" to="Player" method="_on_alien_handler_add_spaceship"]

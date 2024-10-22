@@ -1,15 +1,22 @@
-[gd_scene load_steps=15 format=3 uid="uid://cptrfm0wqusom"]
+[gd_scene load_steps=18 format=3 uid="uid://cptrfm0wqusom"]
 
 [ext_resource type="Script" path="res://globals/Menus/menu.gd" id="1_5ngoy"]
+[ext_resource type="Texture2D" uid="uid://cp1see3sdst8" path="res://globals/resources/icons/splash-screen.png" id="2_v1fwe"]
 [ext_resource type="Script" path="res://globals/Menus/press_start.gd" id="3_5hxox"]
 [ext_resource type="Script" path="res://globals/Menus/blink.gd" id="3_grf3p"]
 [ext_resource type="FontFile" uid="uid://ruf2s0df3ysd" path="res://globals/resources/fonts/Jersey25-Regular.ttf" id="4_tgje6"]
+[ext_resource type="Texture2D" uid="uid://ctd5itrxm3gfo" path="res://globals/resources/icons/Galaga-Logo.png" id="4_ytbuo"]
 [ext_resource type="Script" path="res://globals/Menus/hi_score.gd" id="5_yj1v2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_q8jt2"]
 font = ExtResource("4_tgje6")
 font_size = 64
 font_color = Color(0, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ldclq"]
+font = ExtResource("4_tgje6")
+font_size = 32
+font_color = Color(1, 0.34902, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_miuge"]
 font = ExtResource("4_tgje6")
@@ -27,10 +34,12 @@ font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_gs08o"]
 font = ExtResource("4_tgje6")
+font_size = 32
 font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0763p"]
 font = ExtResource("4_tgje6")
+font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_kq5m8"]
 font = ExtResource("4_tgje6")
@@ -68,15 +77,66 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="PressStart"]
 layout_mode = 2
 
-[node name="PressStart" type="Label" parent="PressStart/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PressStart/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 300
+
+[node name="PressStart" type="Label" parent="PressStart/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Press Start"
+text = "START"
 label_settings = SubResource("LabelSettings_q8jt2")
 horizontal_alignment = 1
 script = ExtResource("3_grf3p")
 
+[node name="MarginContainer" type="MarginContainer" parent="PressStart"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PressStart/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="PressStart/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_ytbuo")
+
+[node name="MarginContainer" type="MarginContainer" parent="PressStart/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -120
+
+[node name="Subtitle" type="Label" parent="PressStart/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Fan game"
+label_settings = SubResource("LabelSettings_ldclq")
+horizontal_alignment = 1
+
+[node name="PauseMenu" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+custom_minimum_size = Vector2(1280, 1280)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+layout_mode = 2
+
+[node name="PauseTitle" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Pause"
+label_settings = SubResource("LabelSettings_q8jt2")
+horizontal_alignment = 1
+
 [node name="GameOver" type="CenterContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -97,19 +157,37 @@ script = ExtResource("3_grf3p")
 
 [node name="MarginContainer" type="MarginContainer" parent="GameOver"]
 layout_mode = 2
-theme_override_constants/margin_top = 100
+theme_override_constants/margin_top = 145
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameOver/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/MarginContainer"]
+layout_mode = 2
+
+[node name="Level" type="HBoxContainer" parent="GameOver/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="YourScore" type="Label" parent="GameOver/MarginContainer/HBoxContainer"]
+[node name="Level" type="Label" parent="GameOver/MarginContainer/VBoxContainer/Level"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Level:"
+label_settings = SubResource("LabelSettings_miuge")
+
+[node name="LevelNumber" type="Label" parent="GameOver/MarginContainer/VBoxContainer/Level"]
+layout_mode = 2
+text = "00"
+label_settings = SubResource("LabelSettings_ks2ib")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOver/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="YourScore" type="Label" parent="GameOver/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Your score: 
 "
 label_settings = SubResource("LabelSettings_miuge")
 
-[node name="FinalScore" type="Label" parent="GameOver/MarginContainer/HBoxContainer"]
+[node name="FinalScore" type="Label" parent="GameOver/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "00"
 label_settings = SubResource("LabelSettings_ks2ib")
@@ -233,9 +311,8 @@ text = "00"
 label_settings = SubResource("LabelSettings_0763p")
 script = ExtResource("5_yj1v2")
 
-[node name="sound" type="AudioStreamPlayer2D" parent="."]
-
 [node name="GridContainer" type="GridContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -254,11 +331,12 @@ layout_mode = 2
 
 [node name="name" type="Label" parent="GridContainer/MarginContainer"]
 layout_mode = 2
-text = "By: JUAN"
+text = "By: JUAN :)"
 label_settings = SubResource("LabelSettings_kq5m8")
 horizontal_alignment = 1
 
 [node name="GridContainer2" type="GridContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -285,6 +363,26 @@ horizontal_alignment = 1
 
 [node name="score" type="Label" parent="GridContainer2/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "00"
+text = "3000
+"
 label_settings = SubResource("LabelSettings_865mm")
 horizontal_alignment = 1
+
+[node name="Spash" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Spash"]
+custom_minimum_size = Vector2(1080, 1080)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Spash"]
+layout_mode = 2
+texture = ExtResource("2_v1fwe")
+
+[node name="sound" type="AudioStreamPlayer2D" parent="."]

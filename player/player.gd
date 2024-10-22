@@ -116,6 +116,8 @@ func shoot() -> void:
 
 func dead(spaceshipDestroy: bool):
 	if spaceshipDestroy:
+		effects.stream = preload("res://globals/effects/Explosion.mp3")
+		effects.play()
 		var spaceship_destroy = preload("res://player/model/spaceship_destroy.tscn").instantiate()
 		spaceship_destroy.position = Vector3(spacechip_controller.position.x,spacechip_controller.position.y,spacechip_controller.position.z + 0.7)
 		get_parent_node_3d().add_child(spaceship_destroy)

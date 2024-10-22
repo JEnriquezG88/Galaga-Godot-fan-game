@@ -14,7 +14,8 @@ config/name="Galaga-FanGame"
 run/main_scene="res://levels/test.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 run/max_fps=60
-boot_splash/image="res://globals/resources/icons/splash-screen.png"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
 config/icon="res://globals/resources/icons/icon_monochrome_dark.png"
 
 [autoload]
@@ -28,8 +29,8 @@ GlobalReferences="*res://globals/scripts/global_references.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=1280
+window/size/viewport_width=1080
+window/size/viewport_height=1080
 window/size/resizable=false
 window/size/borderless=true
 

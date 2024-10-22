@@ -1,9 +1,9 @@
-res://enemies/effects/tract_beam.tscn
+res://levels/test.tscn
 res://enemies/effects/TrackShader.tres
 res://player/playerAssets/bullet.tres
 res://levels/stars.tres
 res://levels/stars2.tres
-res://levels/test.tscn
+res://levels/LevelActions.gd
 res://enemies/diferent/yellow_alien.tscn
 res://globals/Menus/start.tscn
 res://player/playerAssets/bullet.tscn
@@ -14,6 +14,10 @@ res://player/PlayerCollision.tscn
 res://globals/effects/explosion.tscn
 res://player/model/spaceship_destroy.tscn
 res://enemies/effects/capture_particles.tscn
-res://enemies/alien.gd
-res://enemies/alien_handler.gd
-res://enemies/diferent/green_alien.gd
+res://enemies/effects/tract_beam.tscn
+res://globals/scripts/Level.gd
+res://globals/scripts/states.gd
+res://globals/Menus/menu.gd
+res://enemies/alien_factory.gd
+res://player/player.gd
+res://default_bus_layout.tres

@@ -19,3 +19,9 @@ enum PlayerStates{
 	CAPTURE,
 	DEAD
 }
+enum LevelStates{
+	IDLE,
+	PLAYING,
+	PAUSE,
+	GAME_OVER
+}

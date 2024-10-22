@@ -2,7 +2,6 @@ extends Node3D
 
 @onready var alien_handler: Node3D = $AlienHandler
 @onready var alien_audio: AudioStreamPlayer3D = $AlienAudio
-@onready var explosion_audio: AudioStreamPlayer3D = $ExplosionAudio
 
 var iterations : int = 0
 var rowIterations : int = 0
@@ -46,7 +45,6 @@ func dead() -> void:
 	else:
 		alien_audio.stream = DEAD_2
 	alien_audio.play()
-	explosion_audio.play()
 
 
 func _on_control_start_game() -> void:

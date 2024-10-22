@@ -6,6 +6,8 @@ var score : int = 0
 var liveScore = 20000
 var hiScore : int = 3000
 var gameOver : bool = false
+var state = States.LevelStates.IDLE
+
 func _init() -> void:
 	generateTargets()
 		
