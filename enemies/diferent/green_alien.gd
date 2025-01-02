@@ -100,26 +100,6 @@ func onCaptured(initialPosition: Vector3):
 	add_child(redSpaceship)
 	state = States.AlienStates.CAPTURING
 
-#func capturing(delta):
-	#if spaceship.rotation.y < 20 * PI:
-		#spaceship.rotation.y += 20 * delta
-	#elif spaceship.position.z < 2.0:
-		#trackBeam.setScale(0.0)
-		#spaceship.position.z = lerp(spaceship.position.z, 2.1,10 * delta)
-	#else:
-		#get_parent_node_3d().canReplaceSound = true
-		#get_parent_node_3d().capturingSounds(CAPTURE)
-		#get_parent_node_3d().canReplaceSound = false
-		#spaceshipRotation = true;
-		#endUniqueAttack = true
-		#state = States.AlienStates.CAPTURE
-		#get_parent_node_3d().capturedUI.emit()
-		#await get_tree().create_timer(4.33).timeout
-		#get_parent_node_3d().canReplaceSound = true
-		#get_parent_node_3d().captured.emit()
-		#get_parent_node_3d().canAttack = true
-		#get_parent_node_3d().enemyAttack()
-	#
 
 func capturing(delta):
 	if spaceship.rotation.y < 20 * PI && captureSteps == CaptureSteps.TURNS:

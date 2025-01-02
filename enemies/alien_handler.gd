@@ -35,7 +35,7 @@ func spawnAllRightLeft():
 	spawnRightZone()
 	await get_tree().create_timer(3.0).timeout
 	spawnLeftZone()
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(4.0).timeout
 	attack = true
 	canAttack = true
 
@@ -54,25 +54,32 @@ func spawnLeftZone():
 				if alien.state == States.AlienStates.INITIALIZE: alien.state = States.AlienStates.MOVE_TO_TARGET
 
 func enemyAttack():
+	var liveAliensId : Array
 	if canAttack && !Level.gameOver:
 		var iterations : int = 0
 		for aliensRow in aliens:
 			for alien in aliensRow:
 				if alien.state == States.AlienStates.ALIVE:
-					iterations+=1
-		var attackAlien = randi_range(0, iterations - 1)
-		iterations = 0
-		for aliensRow in aliens:
-			for alien in aliensRow:
+					liveAliensId.append(iterations)
 				iterations+=1
-				if iterations == attackAlien && alien.state == States.AlienStates.ALIVE:
-					attackSound.pitch_scale = randf_range(0.5,1.5)
-					attackSound.play()
-					alien.state = States.AlienStates.ATTACK
-		attackAlien = randi_range(0, iterations - 1)/10
-		#attackAlien = randi_range(5,5)
-		
-		await get_tree().create_timer(attackAlien/2).timeout
+		var attackAlien = 0
+		if liveAliensId.size() > 1:
+			attackAlien = randi() % liveAliensId.size()
+		elif liveAliensId.size() > 0:
+			attackAlien = 0
+		if liveAliensId.size() > 0:
+			if attackAlien < liveAliensId.size():
+				if liveAliensId[attackAlien]:
+					iterations = 0
+					for aliensRow in aliens:
+						for alien in aliensRow:
+							if iterations == liveAliensId[attackAlien] && alien.state == States.AlienStates.ALIVE:
+								attackSound.pitch_scale = randf_range(0.8,1.2)
+								attackSound.play()
+								alien.state = States.AlienStates.ATTACK
+							iterations+=1
+		var time = randi_range(0.1, 50)/10
+		await get_tree().create_timer(time/2).timeout
 		enemyAttack()
 
 func _process(delta: float) -> void:

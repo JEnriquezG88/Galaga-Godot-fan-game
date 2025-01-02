@@ -134,6 +134,10 @@ func respawn(delta):
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if position.z < 38:
 		if body.collision_layer & (1 << 1) != 0:
+			if state == States.AlienStates.CAPTURE || state == States.AlienStates.CAPTURING:
+				get_parent_node_3d().canAttack = true
+				get_parent_node_3d().enemyAttack()
+				get_parent_node_3d().canReplaceSound = true
 			if addLife:
 				addLife = false
 				get_parent_node_3d().addLife.emit()

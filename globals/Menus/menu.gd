@@ -56,11 +56,12 @@ func _process(delta: float) -> void:
 			spashInt = 3
 	if spashInt == 3:
 		color_rect.color.a = lerp(color_rect.color.a, 0.0, 2 * delta)
+		if color_rect.color.a < 0.5:
+			canInit = true
 		if color_rect.color.a < 0.01:
 			spashInt = 4
 	if spashInt == 4:
 		spash.visible = false
-		canInit = true
 		spashInt = 0
 
 func initGame():
@@ -122,7 +123,7 @@ func _on_alien_handler_new_level() -> void:
 			sound.stream = preload("res://globals/effects/NewLevel.mp3")
 			sound.play()
 		if i == 10:
-			if Level.level == 1:
+			if Level.level == 1 || Level.level == 88:
 				sound.stream = preload("res://globals/effects/StartGame.mp3")
 				sound.play()
 				Level.state = States.LevelStates.PLAYING
