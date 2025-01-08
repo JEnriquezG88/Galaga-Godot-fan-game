@@ -3,15 +3,3 @@ res://enemies/effects/TrackShader.tres
 res://player/playerAssets/bullet.tres
 res://levels/stars.tres
 res://levels/stars2.tres
-res://globals/scripts/distribution_generator.gd
-res://levels/test.tscn
-res://enemies/diferent/yellow_alien.tscn
-res://globals/Menus/start.tscn
-res://player/playerAssets/bullet.tscn
-res://enemies/bullet.tscn
-res://player/player.tscn
-res://player/model/spacechip_model.tscn
-res://player/PlayerCollision.tscn
-res://globals/effects/explosion.tscn
-res://enemies/effects/capture_particles.tscn
-res://enemies/effects/tract_beam.tscn
